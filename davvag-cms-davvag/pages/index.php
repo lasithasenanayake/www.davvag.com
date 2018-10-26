@@ -6,7 +6,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="icon" href="assets/dock/images/favicon.ico" type="image/png">
-  <title>Hope Lanka International</title>
+  <title>Davvag</title>
   <link href="assets/davvag-cms-davvag/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/davvag-cms-davvag/css/dockanimation.css" rel="stylesheet">
   <link href="assets/davvag-cms-davvag/css/custom.css" rel="stylesheet">
