@@ -44,7 +44,7 @@ WEBDOCK.component().register(function(exports){
     exports.onReady = function(element){
         vueData.el = '#' + $(element).attr('id');
         var handler  = exports.getComponent("auth-handler");
-        document.title="";
+        //document.title="";
         console.log(getCookie("securityToken"));
         handler.services.Session(getCookie("securityToken"))
                 .then(function(result){
