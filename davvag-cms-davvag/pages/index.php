@@ -30,6 +30,14 @@
 
 <div  webdock-component="footer-bar" id="id-footer-bar">
     </div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.1&appId=2048153755495242&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <script src="assets/davvag-cms-davvag/js/bootstrap.min.js"></script>
 <script src="assets/davvag-cms-davvag/js/moments.js"></script>
 <script src="assets/davvag-cms-davvag/js/masory.min.js"></script>
