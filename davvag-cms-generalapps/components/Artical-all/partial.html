@@ -21,7 +21,7 @@
       <tr v-for="item in items">
         <td>{{ item.id }}</td>
         <td>{{ item.createdate }}</td>
-        <td>{{ item.title | foramtdata}}</td>
+        <td>{{ unescape(item.title) }}</td>
         <td>
           <label class="radio-inline" for="feature-0">
             Yes<input type="radio" id="feature-0" value="y" :name="'feature'+item.id" v-model="item.boost">

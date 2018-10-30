@@ -30,7 +30,9 @@ WEBDOCK.component().register(function(exports){
         },
         filter:{
             foramtdata:function(v){
-                return unescape(v);
+                var newdata=unescape(v);
+                console.log(newdata);
+                return newdata;
             }
         }
     } 
