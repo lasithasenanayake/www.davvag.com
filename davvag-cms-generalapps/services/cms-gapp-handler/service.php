@@ -41,5 +41,41 @@ class ArticalService{
         
     }
 
+    function getArtical($req){
+        //echo "imain";
+        if(isset($_GET["q"])){
+            $result = SOSSData::Query ("d_cms_artical_v1",urlencode("id:".$_GET["q"]));
+            //var_dump($result);
+            //echo "imain";
+            if($result->success){
+                $data= $result->result[0];
+                
+                echo '<!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="utf-8" />
+                    <meta name="description" content="'.urldecode($data->summery).'">
+                    <meta name="tags" content="'.urldecode($data->tags).'">
+                    <meta name="og:title" property="og:title" content="'.urldecode($data->title).'">
+                    <meta name="og:description" property="og:description" content="'.urldecode($data->summery).'">
+                    <meta name="og:tags" property="og:tags" content="'.urldecode($data->tags).'">
+                    <meta name="og:image" property="og:image" content="components/dock/soss-uploader/service/get/d_cms_artical/'.$_GET["q"]."-".$data->imgname.'">
+                    <title>'.urldecode($data->title).'</title>
+                    
+                </head>
+                <body>
+                    loading.....
+                    <script type="text/javascript">
+                        setTimeout(function(){ window.location = "/#/app/davvag-cms-generalapps/a?id='.$_GET["q"].'"; }, 1000);
+                        
+                    </script>    
+                </body>
+                </html>';
+                exit();      
+
+            }
+        }
+    }
+
 }
 ?>

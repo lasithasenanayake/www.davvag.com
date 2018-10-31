@@ -17,6 +17,9 @@
         "methods" : {
             "SaveArtical" : {
                 "method" : "POST"
+            },"Artical" : {
+                "method" : "GET",
+                "parameters": ["q"]
             }
         }
     
