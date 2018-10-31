@@ -56,10 +56,10 @@ class ArticalService{
                     <meta charset="utf-8" />
                     <meta name="description" content="'.urldecode($data->summery).'">
                     <meta name="tags" content="'.urldecode($data->tags).'">
-                    <meta name="og:title" property="og:title" content="'.urldecode($data->title).'">
-                    <meta name="og:description" property="og:description" content="'.urldecode($data->summery).'">
-                    <meta name="og:tags" property="og:tags" content="'.urldecode($data->tags).'">
-                    <meta name="og:image" property="og:image" content="components/dock/soss-uploader/service/get/d_cms_artical/'.$_GET["q"]."-".$data->imgname.'">
+                    <meta name="og:title" content="'.urldecode($data->title).'">
+                    <meta name="og:description" content="'.urldecode($data->summery).'">
+                    <meta name="og:tags"  content="'.urldecode($data->tags).'">
+                    <meta name="og:image"  content="http://'.$_SERVER["HTTP_HOST"].'/components/dock/soss-uploader/service/get/d_cms_artical/'.$_GET["q"]."-".$data->imgname.'">
                     <title>'.urldecode($data->title).'</title>
                     
                 </head>
