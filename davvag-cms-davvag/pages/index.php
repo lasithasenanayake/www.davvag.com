@@ -9,7 +9,7 @@
   <title>Davvag</title>
   <link href="assets/davvag-cms-davvag/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/davvag-cms-davvag/css/dockanimation.css" rel="stylesheet">
-  <link href="assets/davvag-cms-davvag/css/custom.css" rel="stylesheet">
+  <link href="assets/davvag-cms-davvag/css/custom_v1.css" rel="stylesheet">
   <link href="assets/davvag-cms-davvag/css/style.loaders.css" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg==" crossorigin="anonymous">
   <script id="facebook-jssdk" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&amp;version=v3.1&amp;appId=2048153755495242&amp;autoLogAppEvents=1"></script>
