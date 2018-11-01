@@ -75,6 +75,16 @@ WEBDOCK.component().register(function(exports){
                                 bindData.product.content=bindData.product.content.split('~*').join('"');
                                 bindData.p_image =  r.result.d_cms_artical_imagev1;
                                 bindData.url="http://"+window.location.hostname+"/components/davvag-cms-generalapps/cms-gapp-handler/service/Artical/?q="+bindData.product.id;
+                                /*handler.transformers.getUri({longUrl:bindData.url})
+                                .then(function(result){
+                                    //bindData.product.title=unescape(bindData.product.title);
+                                    console.log(result);
+                                })
+                                .error(function(){
+                            
+                                });*/
+                                
+
                                 for (var i = 0; i < bindData.p_image.length; i++) {
                                     bindData.p_image[i].scr='components/dock/soss-uploader/service/get/d_cms_artical/'+bindData.product.id+'-'+bindData.p_image[i].name;
                                 }

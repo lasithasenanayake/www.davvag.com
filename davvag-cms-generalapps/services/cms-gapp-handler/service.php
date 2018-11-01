@@ -43,12 +43,26 @@ class ArticalService{
 
     function getArtical($req){
         //echo "imain";
+        $data =null;
         if(isset($_GET["q"])){
-            $result = SOSSData::Query ("d_cms_artical_v1",urlencode("id:".$_GET["q"]));
+            $result= CacheData::getObjects(md5("id:".$_GET["q"]),"d_cms_artical_v1");
+            if(!isset($result)){
+                $result = SOSSData::Query ("d_cms_artical_v1",urlencode("id:".$_GET["q"]));
+                if($result->success){
+                    //$f->{$s->storename}=$result->result;
+                    if(isset($result->result[0])){
+                        $data= $result->result[0];
+                        CacheData::setObjects(md5("id:".$_GET["q"]),"d_cms_artical_v1",$result->result);
+                    }
+                }
+            }else{
+                $data= $result[0];
+            }
+            //$result = SOSSData::Query ("d_cms_artical_v1",urlencode("id:".$_GET["q"]));
             //var_dump($result);
             //echo "imain";
-            if($result->success){
-                $data= $result->result[0];
+            if(isset($data)){
+                
                 
                 echo '<!DOCTYPE html>
                 <html>

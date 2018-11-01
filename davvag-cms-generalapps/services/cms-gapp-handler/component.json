@@ -25,6 +25,13 @@
     
     },
     "transformers": {
+        "getUri":{
+            "method":"POST",
+            "route":"/getShortUrl",
+            "destMethod":"POST",
+            "destUrl" : "https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyB4Eo8JauTdnCfrRyDH6SBnFpc5v6nhNtE",
+            "bodyTemplate" : "@@body@@"
+        },
         "allArticals": {
             "method": "GET",
             "route": "/all",
