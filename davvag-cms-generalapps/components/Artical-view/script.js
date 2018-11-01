@@ -11,7 +11,8 @@ WEBDOCK.component().register(function(exports){
         content:"",
         submitErrors:[],
         p_image:[],
-        currentImage:""
+        currentImage:"",
+        url:""
     };
 
     var vueData =   {
@@ -47,7 +48,11 @@ WEBDOCK.component().register(function(exports){
           }
         }
     }
-
+    function chunkString(str, length) {
+        console.log(str);
+        console.log(str.match(new RegExp('.{1,' + length + '}', 'g'))[0]);
+        return str.match(new RegExp('.{1,' + length + '}', 'g'))[0];
+    }
     function loadCategory(scope){
         if (routeData.id){
             var menuhandler  = exports.getShellComponent("soss-data");
@@ -64,11 +69,12 @@ WEBDOCK.component().register(function(exports){
                                 document.title = unescape(bindData.product.title);
                                 bindData.product.title=unescape(bindData.product.title);
                                 bindData.product.content=unescape(bindData.product.content);
-                                bindData.product.summery=unescape(bindData.product.summery);
+                                bindData.product.summery=chunkString(unescape(bindData.product.summery),150);
                                 bindData.product.tags=unescape(bindData.product.tags);
                                 bindData.product.content=bindData.product.content.split("~^").join("'");
                                 bindData.product.content=bindData.product.content.split('~*').join('"');
                                 bindData.p_image =  r.result.d_cms_artical_imagev1;
+                                bindData.url="http://"+window.location.hostname+"/components/davvag-cms-generalapps/cms-gapp-handler/service/Artical/?q="+bindData.product.id;
                                 for (var i = 0; i < bindData.p_image.length; i++) {
                                     bindData.p_image[i].scr='components/dock/soss-uploader/service/get/d_cms_artical/'+bindData.product.id+'-'+bindData.p_image[i].name;
                                 }
