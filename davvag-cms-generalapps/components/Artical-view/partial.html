@@ -1,13 +1,18 @@
 <div class="container" >
     <div class="row">
     <div class="blog-post">
-        
-        <h2 class="blog-post-title">{{ product.title }}</h2>
-        <img v-if="product.imgname" :src="'components/dock/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+product.imgname" alt="post img" width="300" class="pull-left img-responsive postImg img-thumbnail margin10 image-blog-post">
-        <article v-html="compiledMarkdown">
-         
-        </article>
-        
+        <div class="row">
+            <h2 class="blog-post-title">{{ product.title }}</h2>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <img v-if="product.imgname" :src="'components/dock/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+product.imgname" alt="post img" width="300" class="pull-left img-responsive postImg img-thumbnail margin10 image-blog-post">
+            </div>
+            <div class="col-sm-8">
+                <article v-html="compiledMarkdown">
+                </article>      
+            </div>
+        </div>
     </div>
     </div>
     <div class="row" v-if="product.showpics=='y'">
