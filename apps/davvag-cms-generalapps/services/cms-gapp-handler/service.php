@@ -117,7 +117,7 @@ class ArticalService{
     }
 
     function postsaveSettings($req,$res){
-        $path = MEDIA_FOLDER."/".HOST_NAME."/global-setting/";
+        $path = MEDIA_FOLDER."/".DATASTORE_DOMAIN."/global-setting/";
         $saveObj=$req->Body(true);
         if (!file_exists($path))
               mkdir($path, 0777, true);
@@ -131,7 +131,7 @@ class ArticalService{
     }
 
     function postSettings($req){
-        $path = MEDIA_FOLDER."/".HOST_NAME."/global-setting/";
+        $path = MEDIA_FOLDER."/".DATASTORE_DOMAIN."/global-setting/";
         $saveObj=$req->Body(true);
         if (!file_exists($path))
               mkdir($path, 0777, true);
