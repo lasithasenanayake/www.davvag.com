@@ -96,9 +96,10 @@
                 "admin": []
             },
             "routes":{
-                "home" : "/app/davvag-shop",
+                "home" : "/home",
                 "notFound": "/notFound",
                 "partials" : {
+                    "/home":"partial-homeblog-bg",
                     "/app/@appName/*appRoute" : "partial-app",
                     "/donate" : "partial-donation",
                     "/notFound": "partial-404",
