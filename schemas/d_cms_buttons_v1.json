@@ -9,6 +9,10 @@
             }
         },
         {
+            "fieldName":"sortorder",
+            "dataType":"int"
+        },
+        {
             "fieldName":"BType",
             "dataType":"java.lang.String",
             "annotations":{
@@ -19,14 +23,16 @@
             "fieldName":"Name",
             "dataType":"java.lang.String",
             "annotations":{
-                "maxLen": 100
+                "maxLen": 100,
+                "encoding":"utf8"
             }
         },
         {
             "fieldName":"Caption",
             "dataType":"java.lang.String",
             "annotations":{
-                "maxLen": 500
+                "maxLen": 500,
+                "encoding":"utf8"
             }
         },
         {
@@ -38,6 +44,20 @@
         },
         {
             "fieldName":"class",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 500
+            }
+        },
+        {
+            "fieldName":"icon",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 500
+            }
+        },
+        {
+            "fieldName":"other",
             "dataType":"java.lang.String",
             "annotations":{
                 "maxLen": 500

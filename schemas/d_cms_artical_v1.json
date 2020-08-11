@@ -1,4 +1,5 @@
 {
+    
     "fields" : [
         {
             "fieldName":"id",
@@ -9,28 +10,39 @@
             }
         },
         {
+            "fieldName":"catid",
+            "dataType":"int"
+        },
+        {
             "fieldName":"content",
-            "dataType":"java.lang.String"
+            "dataType":"java.lang.String",
+            "annotations":{
+               
+                "encoding":"utf8"
+            }
         },
         {
             "fieldName":"summery",
             "dataType":"java.lang.String",
             "annotations":{
-                "maxLen": 500
+                "maxLen": 500,
+                "encoding":"utf8"
             }
         },
         {
             "fieldName":"title",
             "dataType":"java.lang.String",
             "annotations":{
-                "maxLen": 100
+                "maxLen": 100,
+                "encoding":"utf8"
             }
         },
         {
             "fieldName":"tags",
             "dataType":"java.lang.String",
             "annotations":{
-                "maxLen": 500
+                "maxLen": 500,
+                "encoding":"utf8"
             }
         },
         {
