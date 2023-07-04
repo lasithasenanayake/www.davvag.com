@@ -1,79 +1,75 @@
 [{
     "type": "select",
-    "label": "Course of study",
+    "label": "Learning Mode",
     "req": 0,
-    "name": "course",
+    "name": "learning_type",
     "choices": [{
-        "label": "Medicine",
-        "sel": "Medicine"
+        "label": "Online",
+        "sel": "Online"
     }, {
-        "label": "Engineering",
-        "sel": "Engineering"
+        "label": "Residence",
+        "sel": "Residence"
     }, {
-        "label": "Business Management",
-        "sel": "Business Management"
-    }, {
-        "label": "Information Technology",
-        "sel": "Information Technology"
-    }, {
-        "label": "Hospitality Management",
-        "sel": "Hospitality Management"
-    }]
-},{
-    "type": "select",
-    "label": "Academic Year",
-    "req": 0,
-    "name": "academic_year",
-    "choices": [{
-        "label": "2020/2021",
-        "sel": "2020/2021"
-    }, {
-        "label": "2021/2022",
-        "sel": "2021/2022"
-    }]
-},{
-    "type": "select",
-    "label": "Scholarship looking for",
-    "req": 0,
-    "name": "scholarship",
-    "choices": [{
-        "label": "Full",
-        "sel": "Full"
-    }, {
-        "label": "Half",
-        "sel": "Half"
-    }, {
-        "label": "Part",
-        "sel": "Part"
+        "label": "other",
+        "sel": "other"
     }]
 },
 {
-    "type": "textarea",
-    "label": "GCE O/L Results & School",
-    "name": "gceol",
+    "type": "text",
+    "label": "User Name",
+    "name": "username",
     "req": 1
 },
 {
     "type": "textarea",
-    "label": "GCE A/L Results & School",
-    "name": "gceal",
+    "label": "BIO",
+    "name": "bio",
     "req": 1
 },
 {
-    "type": "textarea",
-    "label": "Z Score",
-    "name": "zscore",
+    "type": "text",
+    "label": "Web Site",
+    "name": "website",
     "req": 1
 },
 {
-    "type": "textarea",
-    "label": "Students ambition",
-    "name": "ambition",
+    "type": "text",
+    "label": "Instagram",
+    "name": "instagram",
     "req": 1
 },
 {
-    "type": "textarea",
-    "label": "Short description why this student needs scholarship",
-    "name": "scholarshipdes",
+    "type": "text",
+    "label": "Facebook ",
+    "name": "facebook",
     "req": 1
-}]
+},
+{
+    "type": "text",
+    "label": "Linked In",
+    "name": "linkedin",
+    "req": 1
+},
+{
+    "type": "text",
+    "label": "Pastor Name",
+    "name": "pastorname",
+    "req": 1
+},
+{
+    "type": "text",
+    "label": "Pastor ContactNo",
+    "name": "pastorcontactno",
+    "req": 1
+},
+{
+    "type": "text",
+    "label": "Church",
+    "name": "church",
+    "req": 1
+}, {
+    "type": "textarea",
+    "label": "Notes",
+    "name": "notes",
+    "req": 0
+} ]

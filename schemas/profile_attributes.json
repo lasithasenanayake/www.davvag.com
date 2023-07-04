@@ -19,29 +19,21 @@
             }
         },
         {
-            "fieldName":"course",
+            "fieldName":"learning_type",
             "dataType":"java.lang.String",
             "annotations":{
-                "maxLen": 200,
-                "encoding":"utf8"
+                "maxLen": 10
             }
         },
         {
-            "fieldName":"academic_year",
+            "fieldName":"username",
             "dataType":"java.lang.String",
             "annotations":{
-                "maxLen": 20
+                "maxLen": 30
             }
         },
         {
-            "fieldName":"scholarship",
-            "dataType":"java.lang.String",
-            "annotations":{
-                "maxLen": 6
-            }
-        },
-        {
-            "fieldName":"gceol",
+            "fieldName":"bio",
             "dataType":"java.lang.String",
             "annotations":{
                 "maxLen": 400,
@@ -49,31 +41,56 @@
             }
         },
         {
-            "fieldName":"gceal",
+            "fieldName":"website",
             "dataType":"java.lang.String",
             "annotations":{
-                "maxLen": 400,
-                "encoding":"utf8"
+                "maxLen": 100
             }
         },
         {
-            "fieldName":"zscore",
+            "fieldName":"instagram",
             "dataType":"java.lang.String",
             "annotations":{
-                "maxLen": 400,
-                "encoding":"utf8"
+                "maxLen": 50
             }
         },
         {
-            "fieldName":"ambition",
+            "fieldName":"facebook",
             "dataType":"java.lang.String",
             "annotations":{
-                "maxLen": 600,
-                "encoding":"utf8"
+                "maxLen": 100
             }
         },
         {
-            "fieldName":"scholarshipdes",
+            "fieldName":"linkedin",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 100
+            }
+        },
+        {
+            "fieldName":"pastorname",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 100
+            }
+        },
+        {
+            "fieldName":"church",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 100
+            }
+        },
+        {
+            "fieldName":"pastorcontactno",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 100
+            }
+        },
+        {
+            "fieldName":"notes",
             "dataType":"java.lang.String",
             "annotations":{
                 "maxLen": 600,

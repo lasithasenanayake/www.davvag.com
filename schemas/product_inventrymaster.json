@@ -8,6 +8,13 @@
             }
         },
         {
+            "fieldName":"attributeid",
+            "dataType":"int",
+            "annotations":{
+                "isPrimary": true
+            }
+        },
+        {
             "fieldName":"tid",
             "dataType":"int"
         },

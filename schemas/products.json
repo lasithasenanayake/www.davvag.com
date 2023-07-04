@@ -43,6 +43,21 @@
             }
         },
         {
+            "fieldName":"sellstype",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 10
+            }
+        },
+        {
+            "fieldName":"qty",
+            "dataType":"float"
+        },
+        {
+            "fieldName":"reorder_qty",
+            "dataType":"float"
+        },
+        {
             "fieldName":"price",
             "dataType":"float"
         },
@@ -78,6 +93,17 @@
             "annotations":{
                 "maxLen": 1
             }
+        },{
+            "fieldName":"storeid",
+            "dataType":"int"
+        },
+        {
+            "fieldName":"storename",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 500,
+                "encoding":"utf8"
+            }
         },
         {
             "fieldName":"catogory",
@@ -85,6 +111,10 @@
             "annotations":{
                 "maxLen": 40
             }
+        },
+        {
+            "fieldName":"catogoryid",
+            "dataType":"int"
         },
         {
             "fieldName":"uom",

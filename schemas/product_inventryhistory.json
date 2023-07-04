@@ -1,0 +1,50 @@
+{
+    "fields" : [
+        {
+            "fieldName":"changeid",
+            "dataType":"int",
+            "annotations":{
+                "isPrimary": true,
+                "autoIncrement": true
+            }
+        },
+        {
+            "fieldName":"itemid",
+            "dataType":"int"
+        },
+        {
+            "fieldName":"attributeid",
+            "dataType":"int"
+        },
+        {
+            "fieldName":"refid",
+            "dataType":"int"
+        },
+        {
+            "fieldName":"TranDate",
+            "dataType":"java.util.Date"
+        },
+        {
+            "fieldName":"tid",
+            "dataType":"int"
+        },
+        {
+            "fieldName":"tenant",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 200
+            }
+        },
+        {
+            "fieldName":"uom",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 200
+            }
+        },
+        {
+            "fieldName":"qty",
+            "dataType":"float"
+        }        
+    ]
+}

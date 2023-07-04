@@ -26,6 +26,13 @@
             }
         },
         {
+            "fieldName":"invType",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 10
+            }
+        },
+        {
             "fieldName":"transactionid",
             "dataType":"int"
         },
@@ -50,6 +57,18 @@
         },
         {
             "fieldName":"price",
+            "dataType":"float"
+        },
+        {
+            "fieldName":"subtotal",
+            "dataType":"float"
+        },
+        {
+            "fieldName":"discount_percentage",
+            "dataType":"float"
+        },
+        {
+            "fieldName":"discount",
             "dataType":"float"
         },
         {

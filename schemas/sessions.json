@@ -1,0 +1,50 @@
+{
+    "fields" : [
+        {
+            "fieldName":"token",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "isPrimary": true,
+                "maxLen":100
+            }
+        },{
+            "fieldName":"userid",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 100
+            }
+        },{
+            "fieldName":"email",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 255
+            }
+        },{
+            "fieldName":"clientIP",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 30
+            }
+        },{
+            "fieldName":"jwt",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 255
+            }
+        },{
+            "fieldName":"sysgroup",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 100
+            }
+        },{
+            "fieldName":"otherdata",
+            "dataType":"object",
+            "annotations":{
+                "maxLen": 1000
+            }
+        }
+        
+
+    ]
+}

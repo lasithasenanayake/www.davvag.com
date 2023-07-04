@@ -1,0 +1,22 @@
+{
+    "fields" : [
+        {
+            "fieldName":"itemid",
+            "dataType":"int",
+            "annotations":{
+                "isPrimary": true
+            }
+        },
+        {
+            "fieldName":"subitemid",
+            "dataType":"int",
+            "annotations":{
+                "isPrimary": true
+            }
+        },
+        {
+            "fieldName":"grpqty",
+            "dataType":"int"
+        }      
+    ]
+}

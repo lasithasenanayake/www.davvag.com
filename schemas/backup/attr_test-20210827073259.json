@@ -1,0 +1,1 @@
+{"fields":[{"fieldName":"xyz","dataType":"int","annotations":{}},{"fieldName":"abc","dataType":"java.lang.String","annotations":{"maxLen":"100"}}]}

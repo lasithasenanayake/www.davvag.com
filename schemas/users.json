@@ -4,20 +4,37 @@
             "fieldName":"userid",
             "dataType":"java.lang.String",
             "annotations":{
-                "isPrimary": true
+                "isPrimary": true,
+                "maxLen":100
             }
         },
         {
             "fieldName":"email",
-            "dataType":"java.lang.String"
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen":255
+            }
         },
         {
             "fieldName":"username",
-            "dataType":"java.lang.String"
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen":255
+            }
         },
         {
             "fieldName":"name",
-            "dataType":"java.lang.String"
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen":255
+            }
+        },
+        {
+            "fieldName":"password",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen":255
+            }
         },
         {
             "fieldName":"otherdata",

@@ -1,0 +1,32 @@
+{
+    "fields" : [
+        {
+            "fieldName":"id",
+            "dataType":"int",
+            "annotations":{
+                "isPrimary": true
+            }
+        },
+        {
+            "fieldName":"mainkey",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 50
+            }
+        },
+        {
+            "fieldName":"appkey",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 200
+            }
+        },
+        {
+            "fieldName":"apiuri",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 200
+            }
+        }
+    ]
+}
