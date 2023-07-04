@@ -1,6 +1,6 @@
 WEBDOCK.component().register(function(exports){
     var bindData = {
-        item:{catogory:"Student",id:0,title:"Mr",name:"Lasitha",gender:"m",organization:"Christ Gospel",email:"lasitha@gmail.com",contactno:"sss",addresss:"ssss",country:"sssss",city:"dddddddd"},
+        item:{catogory:"Student",id:0,title:"",name:"Loading ....",gender:"m",organization:"",email:"",contactno:"",addresss:"",country:"",city:""},
         submitErrors: undefined,
         SearchItem:"",
         items:[],
@@ -22,6 +22,17 @@ WEBDOCK.component().register(function(exports){
                 handler = exports.getShellComponent("soss-routes");
                 handler.appNavigate("../edit?id=" + id);
             },
+            navigatebutton: function(pagev,p){
+                //console.log(p);
+               
+                handler = exports.getShellComponent("soss-routes");
+                if(p!=null){
+                    handler.appNavigate("../"+pagev+"?id=" + p.id);
+                    addProfileToTmp(p);
+                }else{
+                    handler.appNavigate("/"+pagev);
+                }
+            },
             navigatepage: function(pagev,p){
                 //console.log(p);
                 //addProfileToTmp(p);
@@ -33,14 +44,20 @@ WEBDOCK.component().register(function(exports){
                 }
             },
             status:function(status){
-                switch(status){
-                    case "ToBeActive":
+                switch((status?status:'active').toString().toLowerCase()){
+                    case "tobeactive":
                         return "primary";
                     break;
-                    case "Deactive":
+                    case "tobeactivated":
+                        return "pramary";
+                        break;
+                    case "inactive":
+                        return "warning";
+                    break;
+                    case "void":
                         return "danger";
                     break;
-                    case "Active":
+                    case "active":
                         return "success";
                     break;
                     default:
@@ -72,7 +89,6 @@ WEBDOCK.component().register(function(exports){
     function initializeComponent(){
         profileHandler = exports.getComponent("profile");
         pInstance = exports.getShellComponent("soss-routes");
-        uploaderInstance = exports.getComponent ("soss-uploader");
         routeData = pInstance.getInputData();
         if(routeData!=null){
             getProfilebyID(routeData.id)

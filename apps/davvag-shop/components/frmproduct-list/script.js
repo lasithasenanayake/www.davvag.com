@@ -82,11 +82,13 @@ WEBDOCK.component().register(function(exports){
         
         selectStore: function(p){
             bindData.product=p;
+            bindData.product.qty=1;
+            bindData.product.url="http://"+window.location.hostname+"/components/davvag-shop/productsvr/service/Product/?q="+bindData.product.itemid.toString();
             $('#modalImagePopup').modal('show');
         }, 
         navcheckout: function(){
             window.location="#/app/davvag-shop/checkout";
-        }
+        }   
         ,selectStoreClose: function(){
             //bindData.product=p;
             $('#modalImagePopup').modal('toggle');
@@ -134,7 +136,7 @@ WEBDOCK.component().register(function(exports){
                 }
                 x++;
             }
-            item.qty=1;
+            //item.qty=1;
             item.isOrder = isOrder;
             items.push(item);
             sessionStorage.items=JSON.stringify(items);

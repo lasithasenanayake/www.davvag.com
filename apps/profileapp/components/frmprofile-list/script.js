@@ -29,6 +29,27 @@ WEBDOCK.component().register(function(exports){
                 }else{
                     handler.appNavigate("/"+pagev);
                 }
+            },status:function(status){
+                switch((status?status:'active').toString().toLowerCase()){
+                    case "tobeactive":
+                        return "primary";
+                    break;
+                    case "tobeactivated":
+                        return "pramary";
+                        break;
+                    case "inactive":
+                        return "warning";
+                    break;
+                    case "void":
+                        return "danger";
+                    break;
+                    case "active":
+                        return "success";
+                    break;
+                    default:
+                        return "warning";
+                    break;
+                }
             }
         }
     }
@@ -107,7 +128,8 @@ WEBDOCK.component().register(function(exports){
                             image:"components/dock/soss-uploader/service/get/profile/"+element.id,
                             email:element.email,
                             contactno:element.contactno,
-                            organization:element.organization
+                            organization:element.organization,
+                            Status:element.Status
                         })
                     });
                     

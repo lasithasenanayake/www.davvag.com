@@ -8,6 +8,10 @@
             "type":"shell",
             "location":"shell"
         },
+        "app_popup": {
+            "type":"shell",
+            "location":"shell"
+        },
         "soss-routes-vue": {
             "type":"shell",
             "location":"shell"
@@ -28,6 +32,13 @@
             "type":"shell",
             "location":"shell"
         },
+        "attribute_shell_popup": {
+            "type":"shell",
+            "location":"shell"
+        },"attribute_shell": {
+            "type":"shell",
+            "location":"shell"
+        },
         "Artical-list": {
             "type":"component",
             "location":"components"
@@ -39,7 +50,7 @@
             "type":"component",
             "location":"components"
         },
-        "headerbar": {
+        "headerbar_launcher": {
             "type":"component",
             "location":"components"
         },
@@ -67,7 +78,7 @@
             "type":"partial",
             "location":"partials"
         },
-        "partial-homeblog-bg":{
+        "partial-homeblog-bg-carousel":{
             "type":"partial",
             "location":"partials"
         },
@@ -75,7 +86,19 @@
             "type":"partial",
             "location":"partials"
         },
-        "qti-home":{
+        "partial-album-view":{
+            "type":"partial",
+            "location":"partials"
+        },
+        "partial-album-bg-carousel":{
+            "type":"partial",
+            "location":"partials"
+        },
+        "qti-home-1":{
+            "type":"partial",
+            "location":"partials"
+        },
+        "davvag-shop-v2-landing":{
             "type":"partial",
             "location":"partials"
         }
@@ -90,7 +113,7 @@
     "configuration":{
         "webdock":{
             "startupComponent" : "product",
-            "onLoad": ["dependencies", "soss-routes","soss-routes-vue", "soss-uploader","soss-validator", "auth-handler","soss-data"],
+            "onLoad": ["dependencies","app_popup", "soss-routes","attribute_shell","attribute_shell_popup","soss-routes-vue", "soss-uploader","soss-validator", "auth-handler","soss-data"],
             "firewall" : {
                 "guest" : [],
                 "admin": []
@@ -99,8 +122,9 @@
                 "home" : "/home",
                 "notFound": "/notFound",
                 "partials" : {
-                    "/home":"partial-homeblog-bg",
+                    "/" : "partial-album-bg-carousel",
                     "/app/@appName/*appRoute" : "partial-app",
+                    "/home" : "davvag-shop-v2-landing",
                     "/donate" : "partial-donation",
                     "/notFound": "partial-404",
                     "/account": "partial-account",

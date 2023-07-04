@@ -1,0 +1,52 @@
+{
+    "components": {
+        "projects-list":{"type":"component","location":"apps"},
+        "projects":{
+            "type":"component",
+            "location":"apps"
+        },
+        "tasks":{
+            "type":"component",
+            "location":"apps"
+        },
+        "viewObject":{
+            "type":"component",
+            "location":"apps"
+        },
+        "taskapi":{
+            "type":"service",
+            "location":"service"
+        },
+        "viewObjectAPI":{
+            "type":"service",
+            "location":"service"
+        },
+        "project-type":{
+            "type":"component",
+            "location":"apps"
+        }
+    },
+    "description":{
+        "title": "Davvag Task",
+        "author":"Davvag",
+        "version":"0.8",
+        "icon":"appicon.png"
+    },
+    "tags":["showincms","showindock"],
+    "configuration":{
+        "webdock":{
+            "startupComponent" : "TestApp",
+            "onLoad": ["taskapi","viewObjectAPI"],
+            "routes":{
+                "partials":{
+                    "/tasks" : "tasks",
+                    "/projects" : "projects-list"
+                }
+            }
+        },"dock":{
+            "subapps":[
+                {"name":"Task","path":"tasks"},{"name":"Projects","path":"projects"}
+            ]
+        }
+    }
+}

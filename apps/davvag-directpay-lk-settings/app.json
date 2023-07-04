@@ -1,0 +1,30 @@
+{
+    "components": {
+        "app-handler": {
+            "type":"service",
+            "location":"service"
+        },
+        "directpay-settings":{
+            "type":"component",
+            "location":"apps"
+        }
+    },
+    "description":{
+        "title": "Direct Pay Settings",
+        "author":"Davvag",
+        "version":"0.6",
+        "icon":"appicon.png"
+    },
+    "tags":["showindock"],
+    "configuration":{
+        "webdock":{
+            "startupComponent" : "directpay-settings",
+            "onLoad": ["app-handler"],
+            "routes":{
+                "partials":{
+                    "/settings":"directpay-settings"
+                }
+            }
+        }
+    }
+}

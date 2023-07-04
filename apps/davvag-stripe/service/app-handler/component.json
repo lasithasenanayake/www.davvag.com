@@ -1,0 +1,39 @@
+{
+    "name" : "app-handler",
+    "description":"Vue.JS Plugin for Soss Router",
+    "author":"Lasitha Senanayake",
+    "version" : "0.1",
+    "gitUrl" : "",
+    "resources": {
+        "files":[
+            {
+                "type" : "mainScript",
+                "location" : "script.js"
+            }
+        ]
+    },
+    "serviceHandler" : {
+        "file": "service.php",
+        "class": "Stripe_IPG",
+        "methods" : {
+            "ChargeAmountFromCard" : {
+                "method" : "POST"
+            },
+            "TestChargeAmountFromCard" : {
+                "method" : "POST"
+            },
+            "Order" : {
+                "method" : "GET",
+                "parameters":["id"]
+            },
+            "PublicToken" : {
+                "method" : "GET",
+                "parameters":["id"]
+            }       
+        }
+    },
+    "transformers": {
+        
+    }
+    
+}

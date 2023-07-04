@@ -1,0 +1,38 @@
+{
+    "name" : "seller Service",
+    "description":"Vue.JS Plugin for Soss Router",
+    "author":"Lasitha Senanayake",
+    "version" : "0.1",
+    "gitUrl" : "",
+    "resources": {
+        "files":[
+            {
+                "type" : "mainScript",
+                "location" : "script.js"
+            }
+        ]
+    },
+    "serviceHandler" : {
+        "file": "service.php",
+        "class": "seller_svr",
+        "methods" : {
+            "Orders":{
+                "method":"GET",
+                "parameters":["type"]
+            },
+            "OrderDetails":{
+                "method":"GET",
+                "parameters":["id"]
+            },
+            "UpdateOrder":{
+                "method":"GET",
+                "parameters":["id","status"]
+            }
+
+        }
+    },
+    "transformers": {
+        
+    }
+    
+}

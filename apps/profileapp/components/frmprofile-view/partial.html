@@ -19,6 +19,11 @@
         {{ item.address }}
       </address>
       
+      <ul class="social-list">
+        <li><button class="btn btn-default btn-xs" v-on:click="navigatebutton('inv',item)">Invoice</button></li>
+        <li><button class="btn btn-default btn-xs" v-on:click="navigatebutton('rpt',item)">Payment</button></li>
+        <li><button class="btn btn-default btn-xs" v-on:click="navigatebutton('change',item)">Change Status</button></li>
+      </ul>
     </div><!-- col-sm-3 -->
     <div class="col-sm-9">
       
@@ -26,6 +31,7 @@
         <h2 class="profile-name">{{ item.name }}</h2>
         <div class="profile-location"><i class="fa fa-map-marker"></i> {{ item.city }}, {{ item.country }}</div>
         <div class="profile-position"><i class="fa fa-briefcase"></i>  {{ item.organization }}</div>
+        <div class="profile-position"><i class="fa fa-briefcase"></i>  <span :class="'label label-'+status(item.Status)"> {{ item.Status }}</span></div>
         
         <div class="mb20"></div>
         

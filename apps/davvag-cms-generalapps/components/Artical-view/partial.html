@@ -4,19 +4,19 @@
     </div>
     <div class="row">
     <div class="blog-post">
-        <div class="row">
+        <div class="row text-center">
             <h2 class="blog-post-title" v-html="product.title"></h2>
         </div>
         <div class="row">
                 <audio v-if="getfiletype(product.imgname)=='audio'"  class="pull-left" controls>
-                        <source :src="'components/dock/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+product.imgname" type="audio/mpeg">
-                        <a :href="'components/dock/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+product.imgname">Please click to download file</a>
+                        <source :src="'components/davvag-cms/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+product.imgname" type="audio/mpeg">
+                        <a :href="'components/davvag-cms/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+product.imgname">Please click to download file</a>
                 </audio>
         </div>
         <div class="row">
             <div class="col-sm-12">
                 
-                <img v-if="getfiletype(product.imgname)=='img'" :src="'components/dock/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+product.imgname" alt="post img" width="300" class="pull-left img-responsive postImg img-thumbnail margin10 image-blog-post">
+                <img v-if="getfiletype(product.imgname)=='img'" :src="'components/davvag-cms/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+product.imgname" alt="post img" width="300" class="pull-left img-responsive postImg img-thumbnail margin10 image-blog-post">
                 <article v-html="compiledMarkdown">
                 </article>      
                  
@@ -29,13 +29,13 @@
         
         <div class="row">
             <div class="col-lg-3 col-md-4 col-xs-6 thumb" v-for="image in p_image" v-if="product.imgname!=image.name">
-                <a  class="thumbnail" v-on:click="showModal('components/dock/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+image.name)" :src="'components/dock/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+image.name"
+                <a  class="thumbnail" v-on:click="showModal('components/davvag-cms/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+image.name)" :src="'components/dock/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+image.name"
                    data-target="#image-gallery">
                     <img v-if="getfiletype(image.name)=='img'" class="img-thumbnail"
                     :src="'components/dock/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+image.name"
                          :alt="image.caption" >
                     <audio v-if="getfiletype(image.name)=='audio'" controls>
-                                <source :src="'components/dock/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+image.name" type="audio/mpeg">
+                                <source :src="'components/davvag-cms/soss-uploader/service/get/d_cms_artical/'+product.id+'-'+image.name" type="audio/mpeg">
                                 
                     </audio>
                 </a>
@@ -87,7 +87,7 @@
         </a>
         </div>
         <div class="col-social">
-            <a  :href="'whatsapp://send?text='+product.summery+' '+url" target="_blank" aria-label="Share on WhatsApp">                
+            <a  :href="'whatsapp://send?text='+escape(product.summery)+' '+escape(url)" target="_blank" aria-label="Share on WhatsApp">                
                     <i class="fa fa-whatsapp fa-2x"></i>
                 </a>
         </div>
@@ -116,10 +116,11 @@
     
     <div class="row blogCard">
             <div class="col-sm-4 col-sm-offset-1 blogShortContainer" v-for="item in Articals">
-              <div class="blogShort">
-                <a :href="item.application+'?id='+item.id"><h3 class="articleTitlte">{{ unescape(item.title) }}</h3></a>
-                <article class="articalHight" v-html="marked(unescape(item.summery))"></article>
-                <a class="pull-right marginBottom10 read-more-link" :href="item.application+'?id='+item.id">READ MORE</a> 
+              <div v-if="item.applicationtype=='URL'" class="blogShort">
+                <a :href="item.url"><h3 class="articleTitlte">{{ unescape(item.title) }}</h3></a>
+                <article class="articalHight" v-html="marked(unescape(item.description))"></article>
+                
+                <a class="pull-right marginBottom10 read-more-link" :href="item.url">READ MORE</a> 
               </div>    
              </div>
             

@@ -1,0 +1,38 @@
+{
+    "name" : "header Bar v2",
+    "description":"Vue.JS Plugin for Soss Router",
+    "author":"Supun Dissanayake",
+    "version" : "0.1",
+    "gitUrl" : "",
+    "inputData":[
+            {"name":"invoiceNo","datatype":"int"},
+            {"name":"profileId","datatype":"int"},
+            {"name":"shipping_details","datatype":"string"},
+            {"name":"comments","datatype":"string"}
+    ],
+    "outputData":[
+            {"name":"passportno","datatype":"String"},
+            {"name":"country","datatype":"String"},
+            {"name":"occupation","datatype":"string"},
+            {"name":"id","datatype":"int"}
+    ],
+    "resources": {
+        
+        "files":[
+            {
+                "type" : "mainScript",
+                "location" : "script.js"
+            },
+            {
+                "type" : "mainView",
+                "location" : "partial.html"
+            }
+        ],
+        "css":[
+            {
+                "type":"css",
+                "location":"heder-bar.css"
+            }
+        ]
+    }
+}

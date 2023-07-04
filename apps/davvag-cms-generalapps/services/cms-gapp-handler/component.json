@@ -15,15 +15,24 @@
         "file": "service.php",
         "class": "ArticalService",
         "methods" : {
+            "DeleteButton":{"method":"POST"},
+            "SaveAlbum":{
+                "method" : "POST"
+            },
             "SaveArtical" : {
                 "method" : "POST"
             },"Artical" : {
+                "method" : "GET",
+                "parameters": ["q"]
+            },"Album" : {
                 "method" : "GET",
                 "parameters": ["q"]
             },
             "saveSettings" : {
                 "method" : "POST"
             },"Settings" : {
+                "method" : "POST"
+            },"SaveCarousel" : {
                 "method" : "POST"
             }
         }
@@ -42,6 +51,12 @@
             "route": "/all",
             "destMethod": "GET",
             "destUrl" : "http://localhost:9000/data/d_cms_artical_v1"
+        },
+        "allalbums": {
+            "method": "GET",
+            "route": "/allalbums",
+            "destMethod": "GET",
+            "destUrl" : "http://localhost:9000/data/d_cms_album_v1"
         },"allButtons": {
             "method": "GET",
             "route": "/allButtons",
@@ -158,6 +173,18 @@
             "route": "/Imgsbyid/@catid",
             "destMethod": "GET",
             "destUrl" : "http://localhost:9000/data/d_cms_artical_imagev1?query=articalid:@catid"
+        },
+        "getImagesByAlbumId": {
+            "method": "GET",
+            "route": "/AlbumImgsbyid/@catid",
+            "destMethod": "GET",
+            "destUrl" : "http://localhost:9000/data/d_cms_album_imagev1?query=articalid:@catid"
+        },
+        "getAlbumById": {
+            "method": "GET",
+            "route": "/byalbumid/@catid",
+            "destMethod": "GET",
+            "destUrl" : "http://localhost:9000/data/d_cms_album_v1?query=id:@catid"
         }
         
     }

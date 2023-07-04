@@ -6,6 +6,7 @@ WEBDOCK.component().register(function(exports){
         submitErrors : [],submitInfo : [],
         isLoggedIn: localStorage.loginData ? true: false,
         loginData : localStorage.loginData ? JSON.parse(localStorage.loginData) : {},
+        header:sessionStorage.blogheader?JSON.parse(sessionStorage.blogheader):null,
         loginForm : {
             email :"",
             password :""
@@ -14,7 +15,8 @@ WEBDOCK.component().register(function(exports){
         canShowSignUp: false,
         partialToShow: 0,
         isBusy: false,
-        isCompleted: false
+        isCompleted: false,
+        fbEnabled:false
     };
 
     var vueData =  {
@@ -82,15 +84,22 @@ WEBDOCK.component().register(function(exports){
             //routeData = pInstance.getInputData();
             //handler = exports.getShellComponent("soss-routes");
             //handler.appNavigate(id ? "/uom?uomid=" + id : "/uom");
-            if(bindData.isLoggedIn){
-                if(sessionStorage.redirecturl){
-                    scope.isBusy=false;
-                    location.href=sessionStorage.redirecturl;
-                }else{
-                    pInstance.appNavigate("../profile");
-
+            var handler = exports.getComponent("login-handler");
+            handler.services.LoginState().then(function(result){
+                if (result.result){
+                    localStorage.loginData = JSON.stringify(result.result);
+                    localStorage.profile = JSON.stringify(result.result.profile);
+                    if(sessionStorage.redirecturl){
+                        location.href=sessionStorage.redirecturl;
+                    }else{
+                        location.href="#/app/userapp/profile";
+                    }
                 }
-            }
+            }).error(function(result){
+                localStorage.clear();
+                sessionStorage.clear();
+                //pInstance.appNavigate("/login");
+            });
         }
     } 
 
@@ -153,44 +162,40 @@ WEBDOCK.component().register(function(exports){
                     result = result.result;
                     
 
-                    if (!result.error){
+                    if (result.token){
                         setCookie("authData", JSON.stringify(result),1);
-                    // var passhash = CryptoJS.MD5(result.email);
-                    // self.profileimage = "https://www.gravatar.com/avatar/" + passhash+"?s=200&r=pg&d=mm";
-                    bindData.loginData = result;
-                    localStorage.loginData = JSON.stringify(result);
-                    bindData.isLoggedIn = true;
-                    
-                    //if (!cb)
-                        //displayPartial();
+                        bindData.loginData = result;
+                        localStorage.loginData = JSON.stringify(result);
+                        bindData.isLoggedIn = true;
                         $("#form-signin :input").prop("disabled", false);
-                    if (result.profile){
-                        scope.profile = result.profile;
-                        localStorage.setItem("profile",JSON.stringify(bindData.profile));
-                    }
-                    
-                    
-                    if(cb)
-                        cb();
-                    else
-                    {
-                        if(sessionStorage.redirecturl){
-                            scope.isBusy=false;
-                            location.href=sessionStorage.redirecturl;
-                        }else{
-                            pInstance.appNavigate("../profile");
-        
+                        if (result.profile){
+                            scope.profile = result.profile;
+                            localStorage.setItem("profile",JSON.stringify(bindData.profile));
                         }
-
-                    }
+                    
+                    
+                        if(cb)
+                            cb();
+                        else
+                        {
+                            if(sessionStorage.redirecturl){
+                                scope.isBusy=false;
+                                r=sessionStorage.redirecturl;
+                                sessionStorage.removeItem("redirecturl");
+                                location.href="?q="+encodeURI(r);
+                            }else{
+                                if(sessionStorage.blogheader){
+                                    location.href="?q="+encodeURI(JSON.parse(sessionStorage.blogheader).buttonuri);
+                                }else{
+                                    location.href="?q="+encodeURI("/#/app/userapp/profile");
+                                }
+                            }
+                        }
                      
-                }else {
-                    //toastr.error('email and password is incorrect.', 'Security!');    
+                }else {    
                     $("#form-signin :input").prop("disabled", false);
-
                     bindData.submitErrors=[];
                     bindData.submitErrors.push('email and password is incorrect.');
-                    //console.log('email and password is incorrect.', 'Security!');
                 }
     
             }).error (function(result){

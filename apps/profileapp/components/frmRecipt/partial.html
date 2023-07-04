@@ -1,11 +1,9 @@
 <div  class="container" v-show="!invoiceSave">
-    <div class="row clearfix">
-        <div class="col-md-12">
-          <button  class="btn btn-default pull-left" v-on:click="savePreview">Save</button>
-          
-          <button  class="pull-right btn btn-default" v-on:click="navigateBack">Back</button>
-        </div>
-      </div>
+  <div class="row">
+    <div class="alert alert-danger" v-if="submitErrors" v-for="error in submitErrors">
+      <strong>ERROR! </strong> {{error}}
+    </div>
+  </div>
     <div class="row clearfix" style="margin-top:20px">
         <div class="pull-left col-md-4">
           <table class="table table-bordered table-hover" id="tab_logic_total">
@@ -52,7 +50,9 @@
                           <option>Bank Diposit</option>
                           <option>Credit Card</option>
                           <option>Cheque</option>
-                          <option>Pastor</option>
+                          <option>Donation[CASH]</option>
+                          <option>Donation[Bank Diposit]</option>
+                          <option>Donation[Cheque]</option>
                       </select>
                   </td>
               </tr>
@@ -105,33 +105,48 @@
             </td>
           </tr>
           <tr>
+            <th class="text-center">Advance Amount</th>
+            <td class="text-center"><input type="number" name='advance_total' placeholder='0.00' class="form-control" id="sub_total" readonly v-model="AdvanceAmount"/></td>
+          </tr>
+          <tr>
             <th class="text-center">Balance</th>
             <td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly  v-model="total"/></td>
           </tr>
         </tbody>
       </table>
+      
+      
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <textarea class="form-control" rows="3" style="width: 100%;" placeholder="Remarks" v-model="Remark"></textarea>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-12">
+      
+      
+      <button  class="pull-right btn btn-default" v-on:click="navigateBack">Back</button>
+      <button  class="pull-right btn btn-primary" v-on:click="savePreview">Save</button>  
     </div>
   </div>
 </div>
 <div  class="container" v-show="invoiceSave">
-    <div class="row clearfix">
-        <div class="col-md-12">
-          <button  class="btn btn-default pull-left" v-on:click="save" :disabled="InvoiceToSave.receiptNo != 0 ? true : false">Confirm To Save</button>
-          <button  class="pull-right btn btn-default" v-on:click="savePreviewCancel" :disabled="InvoiceToSave.receiptNo != 0 ? true : false">Cancel</button>
-          <button  class="pull-right btn btn-default" v-on:click="navigateBack" v-show="InvoiceToSave.receiptNo != 0 ? true : false">Back</button>
-          <button  class="pull-right btn btn-default" v-on:click="print" v-show="InvoiceToSave.receiptNo != 0 ? true : false">Print</button>
-        </div>
-      </div>
+    
     <div id="printcontent" >
     <div class="row">
         <div class="col-xs-12">
-    		<div class="invoice-title">
-    			<h2>Receipt</h2><h3 class="pull-right">Receipt # {{ InvoiceToSave.receiptNo }}</h3>
-    		</div>
+          <div class="invoice-title">
+            <img :src="'components/dock/soss-uploader/service/get/profile/'+InvoiceToSave.supplier_profileId" width="100px" class="pull-right" v-show="InvoiceToSave.receiptNo != 0 ? true : false"/><br/>
+              <h2>Receipt</h2>
+            </div>
     		<hr>
     		<div class="row">
     			<div class="col-xs-6">
+            
     				<address>
+            <h3>Receipt # {{ InvoiceToSave.receiptNo }}</h3>
             <strong>Payment by:</strong><br>
             <strong>ID: </strong>{{ InvoiceToSave.profileId }}<br>
     					{{ InvoiceToSave.name }}<br>
@@ -143,11 +158,11 @@
     			<div class="col-xs-6 text-right">
             
     				<address>
-        			<strong>Payment To:</strong><br>
-    					Lanka Bible College<br>
-    					Christopher Road,<br>
-    					Peradeneya<br>
-    					Sri Lanka
+        			<strong>Paid To:</strong><br>
+              {{ supplierData.name }}<br>
+              {{ supplierData.address}}<br>
+              {{ supplierData.city }}<br>
+    					{{ supplierData.country }}
     				</address>
     			</div>
     		</div>
@@ -157,14 +172,18 @@
     					<strong>Conatct Details:</strong><br>
     					{{ InvoiceToSave.contactno }}<br>
               {{ InvoiceToSave.email }}<br>
-              <img :src="'https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=pfl'+InvoiceToSave.profileId+'&choe=UTF-8'" v-show="InvoiceToSave.receiptNo != 0 ? true : false"/>
+              <img :src="'https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=rpt'+InvoiceToSave.receiptNo+'&choe=UTF-8'" v-show="InvoiceToSave.receiptNo != 0 ? true : false"/>
     				</address>
     			</div>
     			<div class="col-xs-6 text-right">
     				<address>
+              <strong>Conatct Details:</strong><br>
+              {{ supplierData.contactno }}<br>
+              {{ supplierData.email }}<br>
     					<strong>Payment Type:</strong><br>
               {{ InvoiceToSave.paymentType }}<br>
-              <img :src="'https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=rpt'+InvoiceToSave.receiptNo+'&choe=UTF-8'" v-show="InvoiceToSave.receiptNo != 0 ? true : false"/>
+
+              
               <br>
     				</address>
     			</div>
@@ -208,6 +227,12 @@
                     
     								<td class="no-line text-left"><strong>Paid Amount</strong></td>
     								<td class="no-line text-right">{{ InvoiceToSave.paymentAmount | currency }}</td>
+                  </tr>
+                  <tr>
+    								<td class="no-line"></td>
+                    
+    								<td class="no-line text-left"><strong>Advance Amount</strong></td>
+    								<td class="no-line text-right">{{ InvoiceToSave.advanceAmount | currency }}</td>
     							</tr>
     							<tr>
     								<td class="no-line"></td>
@@ -217,10 +242,23 @@
     							</tr>
     						</tbody>
     					</table>
-    				</div>
+            </div>
+            <div class="row">
+              <b>Remarks:</b>
+              <p>{{ InvoiceToSave.remarks }}</p>
+            </div>
     			</div>
     		</div>
     	</div>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-12">
+      
+      <button  class="pull-right btn btn-default" v-on:click="savePreviewCancel" :disabled="InvoiceToSave.receiptNo != 0 ? true : false">Cancel</button>
+      <button  class="pull-right btn btn-default" v-on:click="navigateBack" v-show="InvoiceToSave.receiptNo != 0 ? true : false">Back</button>
+      <button  class="pull-right btn btn-default" v-on:click="print" v-show="InvoiceToSave.receiptNo != 0 ? true : false">Print</button>
+      <button  class="pull-right btn btn-primary" v-on:click="save" :disabled="InvoiceToSave.receiptNo != 0 ? true : false">Confirm To Save</button>
     </div>
   </div>
 </div>

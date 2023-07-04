@@ -1,0 +1,171 @@
+<h1>Application Launchers</h1>
+<button v-if="pid!=0" class="btn btn-default" v-on:click="goBack">Back to Main App</button>
+<button class="btn btn-default" v-on:click="open">New App Launcher </button>
+
+<div id="appsgrid">
+  Apps will Load here
+</div>
+
+<div class="modal fade" id="modalFieldPopup" role="dialog" tabindex="-1"  style="overflow-x: auto;overflow-y: auto;width:100%;">
+    
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="overflow-x: auto;overflow-y: auto;">
+        <div class="modal-header">
+            <h1>New Launnher</h1>
+        </div>
+        <div class="modal-body">
+          
+            <div class="input-error">
+              <div class="alert alert-danger" v-if="submitErrors" v-for="error in submitErrors">
+                <strong>ERROR! </strong> {{error}}
+              </div>
+              <div class="alert alert-info" v-if="submitInfo" v-for="error in submitInfo">
+                  <strong>INFO! </strong> {{error}}
+                </div>
+            </div>
+            <form id="form-details">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Caption</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" minlength="10" maxlength="100" placeholder="Caption" v-model="data.name">
+                <small id="emailHelp" class="form-text text-muted">Caption of the Menu</small>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Short Name</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" minlength="2" maxlength="10" placeholder="Caption" v-model="data.shortname">
+                <small id="emailHelp" class="form-text text-muted">A name within 10 charactor</small>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Order</label>
+                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  placeholder="order" v-model="data.order_no">
+                <small id="emailHelp" class="form-text text-muted">Please Input the Order</small>
+              </div>
+              <div v-if="pid!=0" class="form-group">
+                <label for="exampleInputPassword1">Launcher Type</label>
+                  <select class="form-control" data-placeholder="Choose a Flow..." v-model="launcherType">
+                    <option value="application">Application</option>
+                    <option value="weburi" >Web URI</option>
+                  </select>
+              </div>
+
+              <div v-if="launcherType=='weburi'" id="frmapp">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Web URI</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="URL" v-model="data.url">
+                  <small id="emailHelp" class="form-text text-muted">Web URL </small>
+                </div>
+              </div>
+              <div v-if="launcherType=='application'" id="frmweburi">
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Applications</label>
+                    <select class="form-control" data-placeholder="Choose a Application" v-model="app" @change="selectApp(app)">
+                      <option value=""></option>
+                      <option :value="a" v-for="a in applications">{{ a.Name }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Sub Application</label>
+                    <select class="form-control" data-placeholder="Sub Application" v-model="subApp" @change="selectSubApp(subApp)">
+                      <option value=""></option>
+                      <option :value="s" v-for="s in subApps"><i class="fa fa-cube" aria-hidden="true"></i> {{ s.Code }} - {{ s.Name }}</option>
+                    </select>
+                </div>
+                <table v-if="pid!=0" class="table">
+                  <thead>
+                    <tr>
+                      <td>Input Variables</td>
+                      <td>Input ValueType</td>
+                      <td>Mapping Field</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="input in inputData">
+                      <td>{{ input.name }}</td>
+                      <td>{{ input.datatype }}</td>
+                      <td>
+                        <select class="form-control" data-placeholder="Select Mapping Field" v-model="input.mappingfield">
+                          <option value="" >Select Mapping Field</option>
+                          <option :value="i.name" v-for="i in fields">{{ i.name }} <span style="color: blue;">({{ i.datatype }}) </span></option>
+                        </select>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Window Type</label>
+                    <select class="form-control" data-placeholder="Sub Application" v-model="data.window_type">
+                      <option value="popup">Popup Window</option>
+                      <option value="popup-lock">Popup Window - Lock</option>
+                      <option value="popup-large">Popup Window Large</option>
+                      <option value="popup-lock-large">Popup Window - Lock Large</option>
+                      <option value="web-uri">Web Uri</option>
+                      <option value="web-uri-new-window">Web Uri - New Window</option>
+                    </select>
+                </div>
+              </div>
+              <div v-if="pid==0" id="frmmain">
+                <h1>The Application Menu is Accessible to</h1>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Applications</label>
+                    <select class="form-control" data-placeholder="Choose a Application" v-model="app" @change="selectApp(app)">
+                      <option value=""></option>
+                      <option :value="a" v-for="a in applications">{{ a.Name }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Sub Application</label>
+                    <select class="form-control" data-placeholder="Sub Application" v-model="subApp">
+                      <option value=""></option>
+                      <option :value="s" v-for="s in subApps"><i class="fa fa-cube" aria-hidden="true"></i> {{ s.Code }} - {{ s.Name }}</option>
+                    </select>
+                </div>
+                
+              </div>
+              
+            </form>
+            
+          
+          
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" v-on:click="submit">Save</button>
+          <button type="button" class="btn btn-warning" v-on:click="close">Cancel</button>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="modal fade" id="appPermission" role="dialog" tabindex="-1"  style="overflow-x: auto;overflow-y: auto;width:100%;">
+    
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="overflow-x: auto;overflow-y: auto;">
+        <div class="modal-header">
+            <h1>User Permission </h1>
+        </div>
+        <div class="modal-body">
+          
+            <div class="input-error">
+              <div class="alert alert-danger" v-if="submitErrors" v-for="error in submitErrors">
+                <strong>ERROR! </strong> {{error}}
+              </div>
+              <div class="alert alert-info" v-if="submitInfo" v-for="error in submitInfo">
+                  <strong>INFO! </strong> {{error}}
+                </div>
+            </div>
+            <div class="form-group">
+              <ul>
+                <li v-for="a in userGroups"><input type="checkbox" true-value="Y" false-value="N" v-model="a.selected"> <b>{{ a.groupid }}</b></li>
+              </ul>
+            </div>
+            
+          
+          
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" v-on:click="SaveUserGroups">Save</button>
+          <button type="button" class="btn btn-warning" v-on:click="userPermClose">Cancel</button>
+        </div>
+    </div>
+</div>
+</div>
+

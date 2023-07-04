@@ -1,0 +1,54 @@
+<div class="input-form">
+  <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> User Record Permision</h1>
+  <hr>
+  <div class="input-error">
+    <div class="alert alert-danger" v-if="submitErrors" v-for="error in submitErrors">
+      <strong>ERROR! </strong> {{error}}
+    </div>
+    <div class="alert alert-info" v-if="submitInfo" v-for="error in submitInfo">
+        <strong>INFO! </strong> {{error}}
+      </div>
+  </div>
+  <div id="form-details">
+    <div class="form-group">
+      <table style="width: 100%;">
+        <thead>
+          <tr>
+             <td>
+              <select name="item_type" class="form-contdol"  id="item_type" placeholder="select type" v-model="item_type" v-on:change="loadVlues();">
+                <option value="user">User</option>
+                <option value="group">Group</option>
+              </select>
+              </td>
+              <td> <select name="item_permision" class="form-contdol" id="item_permision" placeholder="select Permision" v-model="item_permision">
+                <option value="View">View</option>
+                <option value="Edit">Edit</option>
+                <option value="Full">Full</option>
+              </select></td>
+              <td>
+                <select name="item_value" class="form-contdol" id="item_value" placeholder="-" v-model="item_value">
+                  <option v-bind:value="v" v-for="v in item_values">{{ v.text }}</option>
+                </select>
+              </td>
+              <td>
+               <button v-on:click="addItem()">
+                Add Item
+               </button>
+              </td>
+          </tr>
+          
+        </thead>
+        <tbody>
+          <tr v-for="d in items">
+            <td>{{ d.item_type }}</td>
+            <td>{{ d.item_permision }}</td>
+            <td>{{ d.item_text }}</td>
+            <td>Edit|Remove</td>
+          </tr>
+        </tbody>
+      </table>
+    
+    <button  class="btn bg-primary-button btn-block" v-on:click="submit">Save</button>
+    <button  class="btn bg-primary-button btn-block" v-on:click="cancel">Cancel</button>
+  </div>
+  </div>

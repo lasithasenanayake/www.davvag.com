@@ -1,13 +1,68 @@
 <?php
 require_once (PLUGIN_PATH . "/auth/auth.php");
 require_once (PLUGIN_PATH . "/phpcache/cache.php");
-
+require_once (PLUGIN_PATH . "/sossdata/SOSSData.php");
+require_once (PLUGIN_PATH_LOCAL . "/profile/profile.php");
 class LoginService {
     
     function __construct(){
         
     } 
 
+    public function postSave($req,$res){
+        $profile=$req->Body(true);
+        $user= Auth::Autendicate("profile","postSave",$res);
+        if($user->email!=$profile->email){
+            $res->SetError ("You do not have permission to update this profile.");
+            return;
+        }
+        //return $profile;
+        if(!isset($profile->email)){
+            //http_response_code(500);
+            $res->SetError ("provide email");
+            return;
+        }
+        if(!isset($profile->contactno)){
+            //http_response_code(500);
+            $res->SetError ("provide contact no");
+            return;
+        }
+        //var_dump($profile);
+        //exit();
+        $result = SOSSData::Query ("profile", urlencode("id:".($profile->id==null?0:$profile->id).""));
+        
+        //return urlencode("id:".$profile->id."");
+        if(count($result->result)==0)
+        {
+            $profile->createdate=date_format(new DateTime(), 'm-d-Y H:i:s');
+            $profile->userid=$user->userid;
+            $profile->status="tobeactivated";
+            $result = SOSSData::Insert ("profile", $profile,$tenantId = null);
+            if($result->success){
+                $profile->id=$result->result->generatedId;
+                if(isset($profile->attribute)){
+                    $profile->attributes->id=$result->result->generatedId;
+
+                    $r = SOSSData::Insert ("profile_attributes", $profile->attributes);
+                }
+            }
+            CacheData::clearObjects("profile");
+            CacheData::clearObjects("profile_data");
+            return $profile;
+        }else{
+            $profile->attributes->id=$profile->id;
+            $result = SOSSData::Update("profile", $profile);
+            $result = SOSSData::Delete ("profile_attributes", $profile->attributes);
+            $result = SOSSData::Insert ("profile_attributes", $profile->attributes);
+            CacheData::clearObjects("profile");
+            CacheData::clearObjects("profile_data");
+            return $profile;
+           
+        }
+        
+        
+    }
+    
     public function getGoogleLogin($req,$res){
             //App ID
             require_once (PLUGIN_PATH . "/Google/Client.php");
@@ -22,30 +77,127 @@ class LoginService {
             return $loginUrl;
     }
 
-    public function getLoginState($req){
+    public function getLoginState($req,$res){
         //$url = "http://localhost:9000/getsession/$_GET[token]";
-        
-        if(isset($_COOKIE["authData"])){
-            $outObject=json_decode($_COOKIE["authData"]);
-            //echo $outObject->userid;
-            //return $outObject->token;
+        $outObject=Auth::Autendicate();
+        if(isset($outObject->token)){
             $result = CacheData::getObjects($outObject->token,"sessions");
             if(isset($result)){
                 return $result;
             }
-            require_once (PLUGIN_PATH . "/sossdata/SOSSData.php");
+            
             if(isset($outObject->email)){
-                $result = SOSSData::Query ("profile", urlencode("email:".$outObject->email.""));
+                $result = SOSSData::Query ("profile", urlencode("linkeduserid:".$outObject->userid.""));
 
                 if ($result->success == true){
                     if (sizeof($result->result) > 0){
                         $outObject->profile = $result->result[0];
+                        $_SESSION["authData_Profile"]=$result->result[0];
                     }
                 }
                 CacheData::setObjects($outObject->token,"sessions",$outObject);
             }
+        }else{
+            $res->SetError("Session Expired");
         }
-        return $outObject;
+        
+    }
+
+    public function postCreatePaymentRequest($req,$res){
+        $data=$req->Body(true);
+        $r = SOSSData::Query ("profile", urlencode("id:".$data->profileId.""));
+        if(count($r->result)==0){
+            $res->SetError("Profile not file to pay");
+            return null;
+        }else{
+            //$paymentProfile=$r->result[0];
+            //$data->profileId=$paymentProfile->id;
+            //unset($data->id);
+            //$data->studentname=$paymentProfile->name;
+            $data->donorid=0;
+            $Store_profile= Profile::getProfile(0,0);
+            if(isset($Store_profile->profile)){
+                //return $Store_profile->profile;
+                $Store_profile=$Store_profile->profile;
+                $data->supplier_profileId = $Store_profile->id; 
+                $data->supplier_name = $Store_profile->name;
+                $data->supplier_contactno = isset($Store_profile->contactno)?$Store_profile->contactno:null;
+                $data->supplier_address = isset($Store_profile->address)?$Store_profile->address:null;
+                $data->supplier_city = isset($Store_profile->city)?$Store_profile->city:null;
+                $data->supplier_country = isset($Store_profile->country)?$Store_profile->country:null;
+                $data->supplier_email = isset($Store_profile->email)?$Store_profile->email:null;
+            }
+            $r = SOSSData::Query ("profilestatus", urlencode("profileid:".$data->profileId.""));
+            if(count($r->result)==0){
+                $res->SetError("No Outstanding amount to pay.");
+                return null;
+            }else{
+                $profileBalance=$r->result[0];
+                if($profileBalance->outstanding<$data->amount){
+                    $res->SetError("Payment is lager than the Payment.");
+                    return null;
+                }
+                $data->outstandingAmount=$profileBalance->outstanding;
+                $data->paymentAmount=$data->amount;
+                $data->balanceAmount=$profileBalance->outstanding-$data->amount;
+            }
+        }
+
+        $data->currencycode=defined("CURRENCY_CODE")?CURRENCY_CODE:"LKR";
+        $result=SOSSData::Insert ("payment_ext_request", $data);
+        if($result->success){
+            $data->id=$result->result->generatedId;
+            require_once(PLUGIN_PATH . "/notify/notify.php");
+            Notify::sendEmailMessage($data->name,$data->email,"payment_request",$data);
+            return $data;
+        }else{
+            $res->SetError($result);
+            return null;
+        }
+        
+        
+    }
+
+    public function getProfileData($req,$res){
+        
+        $profile=new stdClass();
+        $outObject=Auth::Autendicate();
+        if(isset($outObject->token)){
+            
+            if(isset($outObject->userid)){
+                $result = SOSSData::Query ("profile", urlencode("linkeduserid:".$outObject->userid.""));
+
+                if ($result->success == true){
+                    if (sizeof($result->result) > 0){
+                        $profile=$result->result[0];
+                        $result = SOSSData::Query ("profile_policy", urlencode("id:".$profile->id.""));
+                        $profile->profile_policy=sizeof($result->result) > 0?$result->result[0]:null;
+                        $result = SOSSData::Query ("profilestatus", urlencode("profileid:".$profile->id.""));
+                        $profile->profilestatus=sizeof($result->result) > 0?$result->result[0]:null;
+                        $result = SOSSData::Query ("ledger", urlencode("profileid:".$profile->id.""));
+                        $profile->ledger=$result->result;
+                        $result = SOSSData::Query ("orderheader_pending", urlencode("profileid:".$profile->id.""));
+                        $profile->order_pending=$result->result;
+                        $result = SOSSData::Query ("orderheader_rejected", urlencode("profileid:".$profile->id.""));
+                        $profile->order_rejected=$result->result;
+                        $result = SOSSData::Query ("orderheader_rejected", urlencode("profileid:".$profile->id.""));
+                        $profile->order_rejected=$result->result;
+                        $result = SOSSData::Query ("orderheader_accepted", urlencode("profileid:".$profile->id.""));
+                        $profile->orders=$result->result;
+                        //$outObject->profile = $result->result[0];
+                        return $profile;
+                    }else{
+                        $res->SetError("Critical Error Profile Not Registered.");
+                    }
+                }else{
+                    $res->SetError($result);
+                }
+                //CacheData::setObjects($outObject->token,"sessions",$outObject);
+            }
+        }else{
+            $res->SetError("Not Authorized");
+        }
+        
     }
 
     public function getFacebookLogin($req,$res){
@@ -196,6 +348,27 @@ class LoginService {
         
     }
 
+    public function postupdatePolicy($req,$res){
+        $bodypolicy= $req->Body(true);
+        $result = SOSSData::Query ("profile_policy", urlencode("id:".$bodypolicy->id.""));
+        if( $result->success){
+            $r=null;
+            if(count($result->result)==0){
+                $r=SOSSData::Insert ("profile_policy", $bodypolicy); 
+            }else{
+                $r= SOSSData::Update ("profile_policy", $bodypolicy);
+            }
+            if($r->success){
+                CacheData::clearObjects("profile_policy");
+                return $bodypolicy;
+            }else{
+                $res->SetError($r);
+            }
+        }else{
+            return $result;
+        }
+    }
+
     public function getGetSession($req){
         //$url = "http://localhost:9000/getsession/$_GET[token]";
         $outObject = Auth::GetSession($_GET["token"]);
@@ -205,21 +378,16 @@ class LoginService {
     }
 
     public function getLogin($req){
-        //$url = "http://localhost:9000/login/$_GET[email]/$_GET[password]/$_GET[domain]";
-        //$output = sendRestRequest($url, "GET");
-        
         $outObject = Auth::Login($_GET["email"],$_GET["password"]);
-        
-        $_SESSION["authData"] = json_encode($outObject);
-        setcookie("authData", json_encode($outObject), time() + (86400 * 1), "/"); // 86400 = 1 day
-        setcookie("securityToken", $outObject->token, time() + (86400 * 1), "/");
-        require_once (PLUGIN_PATH . "/sossdata/SOSSData.php");
         if(isset($outObject->email)){
             $result = SOSSData::Query ("profile", urlencode("email:".$outObject->email.""));
-
+            //$_SESSION["authData"] = json_encode($outObject);
+            //setcookie("authData", json_encode($outObject), time() + (86400 * 1), "/"); // 86400 = 1 day
+            //setcookie("securityToken", $outObject->token, time() + (86400 * 1), "/");
             if ($result->success == true){
                 if (sizeof($result->result) > 0){
                     $outObject->profile = $result->result[0];
+                    $_SESSION["authData_Profile"]=$result->result[0];
                 }
             }
             CacheData::setObjects($outObject->token,"sessions",$outObject);
@@ -229,18 +397,12 @@ class LoginService {
     }
 
     public function getLogout($req){
-        if(isset($_COOKIE['authData']))
+        $authdata=Auth::Autendicate();
+        if(isset($authdata->token))
         {
-            $authdata=json_decode($_COOKIE['authData']);
             $outObject = Auth::GetLogout($authdata->token);
-                if(!isset($outObject->error)){
-                unset($_SESSION["authData"]);
-                unset($_COOKIE['authData']); 
-                setcookie('authData', null, -1, '/'); 
-                unset($_COOKIE['securityToken']); 
-                setcookie('securityToken', null, -1, '/'); 
-                session_regenerate_id();
-                //$outObject = new stdClass();
+            if(!isset($outObject->error)){
+
                 return true;
             }else{
                 return false;
@@ -250,55 +412,17 @@ class LoginService {
         }
     }
 
+    public function postChangePassword($req,$res){
+        $bodypass= $req->Body(true);
+        return Auth::ChangePassword($bodypass->password,$bodypass->newpassword);
+    }
+
     public function getResetToken($req){
         $outObject = Auth::GetResetToken($_GET["email"]);
         return $outObject;
     }
 
-    private function sendEmail($toEmail, $resetToken){
-        require_once(PLUGIN_PATH . "/phpmailer/PHPMailerAutoload.php");
-
-        $mail = new PHPMailer();
-        
-        $mail->IsSMTP(); // set mailer to use SMTP
-        $mail->Host = "smtp.elasticemail.com"; // specify main and backup server
-        $mail->SMTPAuth = true; // turn on SMTP authentication
-        $mail->Port =2525;
-        $mail->Username = "orders@mylunch.lk";
-        $mail->Password = "ff06c777-490b-4ff3-8856-320cf3652c1f";
-        $mail->SMTPSecure = 'tls';  
-
-        $mail->From = "orders@mylunch.lk";
-        $mail->FromName = "Mylunch.lk";
-        $mail->Subject  = "Mylunch.lk password reset";
-        $mail->IsHTML(true); 
-        $mail->addAddress($toEmail, $toEmail);
-        
-        $url = "https://mylunch.lk/#/resetpassword?email=$toEmail&token=$resetToken";
-        /*
-        $mail->Host = "103.47.204.4"; // specify main and backup server
-
-        $mail->setFrom('dilshadtheman@gmail.com', 'Mylunch.lk');
-        $mail->IsHTML(true); 
-        $mail->addAddress($toEmail, $toEmail);
-        */
-$body = <<<EOT
-        <div style="width:500px;font-family:Georgia;overflow:auto;">
-            <div style="background:#115FB2;">
-                <img src="https://mylunch.lk/assets/mylunch/img/cart.png"/>
-            </div>
-            <div style="height:100px;clear: both;">
-                <h2>You have requested to reset the password. Please use the following link to reset the password</h2>
-                <a href="%%URL%%">Reset password</a>
-            </div>
-
-        </div>
-EOT;
-        
-        $body = str_replace("%%URL%%",$url,$body);
-        $mail->Body = $body;       
-        $mail->Send();
-    }
+   
 
     public function getResetPassword($req){
         $outObject = Auth::ResetPassword($_GET["email"],$_GET["token"],$_GET["password"]);

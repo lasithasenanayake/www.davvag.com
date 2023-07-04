@@ -1,0 +1,46 @@
+<div>
+  <div class="input-error">
+    <div class="alert alert-danger" v-if="submitErrors" v-for="error in submitErrors">
+      <strong>ERROR! </strong> {{error}}
+    </div>
+    <div class="alert alert-info" v-if="submitInfo" v-for="error in submitInfo">
+        <strong>INFO! </strong> {{error}}
+      </div>
+  </div>
+  <form id="form-details" onsubmit="event.preventDefault();">
+    <div class="form-group">
+      <label for="project_name">Project Name</label>
+      <input type="text" class="form-control" id="test" aria-describedby="projectHelp" placeholder="Enter Project Name" v-model="data.name">
+      <small id="projectHelp" class="form-text text-muted">This is where you can define a Project Name.</small>
+    </div>
+    <div class="form-group">
+      <label for="project_name">Description</label>
+      <textarea id="txtcaption" class="form-control" aria-describedby="projectDescHelp" placeholder="Enter Project Name" rows="3"></textarea>
+      <small id="projectDescHelp" class="form-text text-muted">Say somthing about your porject.</small>
+    </div>
+    <div class="project_types">
+               
+      <ul class="form-group">
+        <li class="list-group-item"><button type="button" class="form-control btn bg-primary-button"   v-on:click="UpdateTask(null)">Add New Task Type</button></li>
+        <li class="list-group-item" v-for="type in types" :style="'color:'+type.color+';'"> {{ type.name }} 
+          <a  class="badge badge-pill" v-on:click="changeAccessTask(type)" aria-label="Edit Task Type">
+            <i v-if="type.sysviewobject==0" class="fa fa-globe fa-1x"> </i>
+            <i v-if="type.sysviewobject!=0" class="fa fa-gear fa-1x"> </i>
+          </a> 
+          <a  class="badge badge-danger badge-pill" v-on:click="delete(type)" aria-label="Remove Task Type">
+            <i  class="fa fa-remove fa-1x"> </i>
+          </a> 
+          <a  class="badge badge-success badge-pill" v-on:click="UpdateTask(type)" aria-label="Edit Task Type">
+            <i  class="fa fa-pencil fa-1x"> </i>
+          </a> 
+          
+          <span class="badge badge-primary badge-pill" :style="'background-color:'+type.color+';'">14</span>
+        </li>
+      </ul>
+    </div>
+    <button  class="btn bg-primary-button btn-block" v-on:click="submit">Save</button>
+    <button  class="btn bg-primary-button btn-block" v-on:click="cancel">Cancel</button>
+  </form>
+  </div>
+<script src='assets/davvag-task/editor.js'></script>
+<link href="assets/davvag-task/editor.css" type="text/css" rel="stylesheet"/>

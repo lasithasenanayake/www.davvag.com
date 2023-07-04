@@ -1,0 +1,34 @@
+{
+    "components": {
+        "charge-form": {
+            "type":"component",
+            "location":"apps"
+        },
+        "register-stripe": {
+            "type":"component",
+            "location":"apps"
+        },
+        "app-handler": {
+            "type":"service",
+            "location":"service"
+        }
+    },
+    "description":{
+        "title": "Strip Payment Gatway App",
+        "author":"Davvag",
+        "version":"0.1",
+        "icon":"appicon.png"
+    },
+    "tags":["showincms"],
+    "configuration":{
+        "webdock":{
+            "startupComponent" : "charge-form",
+            "onLoad": ["app-handler"],
+            "routes":{
+                "partials":{
+                    "/mapstripe":"register-stripe"
+                }
+            }
+        }
+    }
+}

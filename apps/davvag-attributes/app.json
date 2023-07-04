@@ -1,0 +1,32 @@
+{
+    "components": {
+        "attribute-creator":{
+            "type":"component",
+            "location":"apps"
+        },
+        "app-handler": {
+            "type":"service",
+            "location":"services"
+        },
+        "attribute-generator":{
+            "type":"service",
+            "location":"services"
+        }
+    },
+    "description":{
+        "title": "Attribute Creator",
+        "author":"Davvag",
+        "version":"0.1",
+        "icon":"appicon.png"
+    },
+    "tags":["showindock"],
+    "configuration":{
+        "webdock":{
+            "startupComponent" : "attribute-creator",
+            "onLoad": ["app-handler","attribute-generator"],
+            "routes":{
+                "partials":{}
+            }
+        }
+    }
+}

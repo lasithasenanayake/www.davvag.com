@@ -1,0 +1,91 @@
+<div class="contentpanel">
+      
+  <div class="row">
+    <div class="col-sm-3">
+      <img :src="image" class="thumbnail img-responsive" alt="">
+      
+      <div class="mb30"></div>
+      
+      <h5 class="subtitle">Connect</h5>
+      <ul class="profile-social-list">
+        <li> <a href="">{{ item.email }}</a></li>
+        <li> <a href="">{{ item.contactno }}</a></li>
+      </ul>
+      
+      <div class="mb30"></div>
+      
+      <h5 class="subtitle">Address</h5>
+      <address>
+        {{ item.address }}
+      </address>
+      
+      <ul class="social-list">
+        <li><button class="btn btn-warning btn-xs" v-on:click="navigatebutton('enrol',item)">Enrol Course</button></li>
+        
+      </ul>
+    </div><!-- col-sm-3 -->
+    <div class="col-sm-9">
+      
+      <div class="profile-header">
+        <h2 class="profile-name">{{ item.name }}</h2>
+        <div class="profile-location"><i class="fa fa-map-marker"></i> {{ item.city }}, {{ item.country }}</div>
+        <div class="profile-position"><i class="fa fa-briefcase"></i>  {{ item.organization }}</div>
+        <div class="profile-position"><i class="fa fa-briefcase"></i>  <span :class="'label label-'+status(item.Status)"> {{ item.Status }}</span></div>
+        
+        <div class="mb20"></div>
+        
+        <button class="btn btn-success mr5" v-on:click="navigate(item.id)"><i class="fa fa-user" ></i> Edit</button>
+       <!-- <button class="btn btn-white"><i class="fa fa-envelope-o"></i> Message</button>-->
+      </div><!-- profile-header -->
+      
+      <!-- Nav tabs -->
+    <ul class="nav nav-tabs nav-justified nav-profile">
+      <li class="active"><a href="#tran" data-toggle="tab"><strong>Enrolled Course</strong></a></li>
+      <li><a href="#events" data-toggle="tab"><strong>Activity</strong></a></li>
+    </ul>
+    
+    <!-- Tab panes -->
+    <div class="tab-content">
+      
+      <div class="tab-pane active" id="tran">
+        <h3>Active Courses</h3>
+        <hr/> 
+        <div id="accordion">
+          <div class="card" v-for="enItem in ActiveEnrolments">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" :data-target="'#'+enItem.courseCode" aria-expanded="true" aria-controls="collapseOne" v-on:click="showTab(enItem.courseCode,enItem.id)">
+                  {{ enItem.courseCode }} - {{ enItem.courseName }} | <b>Status:</b> <span :class="'label label-'+status(enItem.status)"> {{ enItem.status }}</span>
+                </button>
+              </h5>
+              
+            </div>
+        
+            <div :id="enItem.courseCode" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <button class="btn btn-success" v-on:click="navigatebutton('enrol_subject',enItem)"> Enrol Subject </button>
+                <hr>
+                <div :id="'grid_'+enItem.courseCode">
+                  loading please wait...
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <hr/>
+        <h3>Finished Courses</h3>
+        <hr/> 
+      </div>
+      <div class="tab-pane" id="events">
+        <div class="events">
+          Under Construction
+          
+        </div><!-- events -->
+      </div>
+    </div><!-- tab-content -->
+      
+    </div><!-- col-sm-9 -->
+  </div><!-- row -->
+  
+</div>
