@@ -5,7 +5,8 @@ WEBDOCK.component().register(function(exports){
         SearchColumn:"name",
         items:undefined,
         image:'',
-        Message:'Please start by searching the profile or creating a new profile'
+        Message:'Please start by searching the profile or creating a new profile',
+        Launchers:[]
     };
 
     var vueData = {
@@ -86,6 +87,21 @@ WEBDOCK.component().register(function(exports){
         profileHandler = exports.getComponent("profile");
         //document.title="test";
         //console.log(document.getElementsByTagName("META"));
+        handler  = exports.getShellComponent("auth-handler");
+        //var menuhandler  = exports.getComponent("soss-data");
+        
+        var tmpmenu=[];
+       
+        handler.services.Launchers({appcode:"profileapp",component:"frmprofile-list"})
+            .then(function(r){
+                if(r.success){
+                    bindData.Launchers=r.result;
+                    console.log(bindData.Launchers);
+                }
+            }).error(function(e){
+
+        });
+
         var x = document.getElementsByTagName("META");
         var i;
         for (i = 0; i < x.length; i++) {
@@ -111,7 +127,7 @@ WEBDOCK.component().register(function(exports){
         //console.log(encodeURI(columncode+":"+columnvalue))
         WEBDOCK.freezeUiComponent("soss-routes",true); 
         bindData.Message="Searching Profiles Please wait....";
-        profileHandler.services.Search({q:encodeURI(columncode+":"+columnvalue+"")})
+        profileHandler.services.SearchV1({column:columncode,value:columnvalue})
         .then(function(response){
             console.log(JSON.stringify(response));
             if(response.success){

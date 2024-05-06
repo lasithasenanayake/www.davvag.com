@@ -203,6 +203,7 @@ WEBDOCK.component().register(function(exports){
             paymentAmount:bindData.paidamount,
             advanceAmount:bindData.AdvanceAmount,
             advanceUtilized:0,
+            paymenttype:bindData.paymenttype,
             status:"Approved",
             detailsString:null,
             remarks:bindData.Remark,
@@ -278,14 +279,14 @@ WEBDOCK.component().register(function(exports){
                 if(response.result.length!=0){
                     bindData.i_profile=response.result[0];
                     bindData.p_image = 'components/dock/soss-uploader/service/get/profile/'+bindData.i_profile.id;
-                    var query=[{storename:"orderheader",search:"profileid:"+id+",PaymentComplete:N"},{storename:"payment_advance",search:"profileid:"+id+",status:new"}];
+                    var query=[{storename:"orderheader",search:"profileId:"+id+",PaymentComplete:N"},{storename:"payment_advance",search:"profileId:"+id+",status:new"}];
                     profileHandler.services.q(query)
                     .then(function(r){
                         console.log(JSON.stringify(r));
                         if(r.success){
 
-                            bindData.InvItems=r.result.orderheader;
-                            bindData.Advance=r.result.payment_advance;
+                            bindData.InvItems=r.result.orderheader?r.result.orderheader:[];
+                            bindData.Advance=r.result.payment_advance?r.result.payment_advance:[];
                             calcTotals();
                             
                         }

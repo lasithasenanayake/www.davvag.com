@@ -12,11 +12,19 @@
             "type":"component",
             "location":"components"
         },
+        "frmDiposit": {
+            "type":"component",
+            "location":"components"
+        },
+        "frmDiposit-view-print": {
+            "type":"component",
+            "location":"components"
+        },
         "frmPO": {
             "type":"component",
             "location":"components"
         },
-        "frmInvoice-view": {
+        "frmInvoice-view-print": {
             "type":"component",
             "location":"components"
         },
@@ -24,7 +32,7 @@
             "type":"component",
             "location":"components"
         },
-        "frmRecipt-view": {
+        "frmRecipt-view-print": {
             "type":"component",
             "location":"components"
         }
@@ -61,10 +69,17 @@
                     "/view" : "frmprofile-view",
                     "/edit" : "frmProfile",
                     "/inv" : "frmInvoice",
+                    "/dip" : "frmDiposit",
                     "/rpt" : "frmRecipt",
                     "/po" : "frmPO",
-                    "/receipt" : "frmRecipt-view",
-                    "/invoice":"frmInvoice-view",
+                    "/receipt" : "frmRecipt-view-print",
+                    "/invoice":"frmInvoice-view-print",
+                    "/diposit":"frmDiposit-view-print",
+                    "/diposit_tr":"frmDiposit-view-print",
+                    "/deposit":"frmDiposit-view-print",
+                    "/deposit_tr":"frmDiposit-view-print",
+                    "/deposit_de":"frmDiposit-view-print",
+                    "/deposit_dv":"frmDiposit-view-print",
                     "/change":"frmprofile-change-status"
                 }
             }

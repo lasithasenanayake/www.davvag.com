@@ -1,0 +1,64 @@
+<div style="color:black;">
+    <div>
+        <div class="row" aria-label="..." style="margin: 10px;">
+          <b>From:</b> <input type="text"  id="startDatePicker" data-date-format="mm-dd-yyyy"/><b> To :</b><input type="text" id="endDatePicker" data-date-format="mm-dd-yyyy"/> <button type="button" v-on:click="refreshData">Search</button>
+
+        </div>
+    </div>
+    <br/><br/><br/>
+
+  <div v-for="i in Object.keys(items)">
+  <h1>{{ i }} Number of Enrolment</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>January</th>
+        <th>February</th>
+        <th>March</th>
+        <th>April</th>
+        <th>May</th>
+        <th>June</th>
+        <th>July</th>
+        <th>August</th>
+        <th>September</th>
+        <th>October</th>
+        <th>November</th>
+        <th>December</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="item in items[i]">
+        <td>{{ item.name }}</td>
+        <td class="text-right"><a v-on:click="showCustomers(item.January);" style="cursor: pointer;">{{ item.January.customers }}</a></td>
+        <td class="text-right"><a v-on:click="showCustomers(item.February);" style="cursor: pointer;">{{ item.February.customers }}</a></td>
+        <td class="text-right"><a v-on:click="showCustomers(item.March);" style="cursor: pointer;">{{ item.March.customers }}</a></td>
+        <td class="text-right"><a v-on:click="showCustomers(item.April);" style="cursor: pointer;">{{ item.April.customers }}</a></td>
+        <td class="text-right"><a v-on:click="showCustomers(item.May);" style="cursor: pointer;">{{ item.May.customers }}</a></td>
+        <td class="text-right"><a v-on:click="showCustomers(item.June);" style="cursor: pointer;">{{ item.June.customers }}</a></td>
+        <td class="text-right"><a v-on:click="showCustomers(item.July);" style="cursor: pointer;">{{ item.July.customers }}</a></td>
+        <td class="text-right"><a v-on:click="showCustomers(item.August);" style="cursor: pointer;">{{ item.August.customers }}</a></td>
+        <td class="text-right"><a v-on:click="showCustomers(item.September);" style="cursor: pointer;">{{ item.September.customers }}</a></td>
+        <td class="text-right"><a v-on:click="showCustomers(item.October);" style="cursor: pointer;">{{ item.October.customers }}</a></td>
+        <td class="text-right"><a v-on:click="showCustomers(item.November);" style="cursor: pointer;">{{ item.November.customers }}</a></td>
+        <td class="text-right"><a v-on:click="showCustomers(item.December);" style="cursor: pointer;">{{ item.December.customers }}</a></td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td class="text-right">{{ sum(i,'January','customers') }}</td>
+        <td class="text-right">{{ sum(i,'February','customers') }}</td>
+        <td class="text-right">{{ sum(i,'March','customers') }}</td>
+        <td class="text-right">{{ sum(i,'April','customers') }}</td>
+        <td class="text-right">{{ sum(i,'May','customers')  }}</td>
+        <td class="text-right">{{ sum(i,'June','customers')  }}</td>
+        <td class="text-right">{{ sum(i,'July','customers')  }}</td>
+        <td class="text-right">{{ sum(i,'August','customers')  }}</td>
+        <td class="text-right">{{ sum(i,'September','customers')  }}</td>
+        <td class="text-right">{{ sum(i,'October','customers')  }}</td>
+        <td class="text-right">{{ sum(i,'November','customers')  }}</td>
+        <td class="text-right">{{ sum(i,'December','customers')  }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
