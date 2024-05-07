@@ -53,9 +53,21 @@ WEBDOCK.component().register(function(exports){
 
 
             loadData();
-            MainSroll();
-            
-
+            window.document.body.onscroll = function(e) {
+        
+                //console.log(window.document.body);
+                //console.log("test  " + (window.innerHeight + window.scrollY) +" yo " +document.body.offsetHeight);
+                if ((window.innerHeight + window.scrollY+30) >= document.body.offsetHeight) {
+                    // you're at the bottom of the page
+                    console.log("In the event ...");
+                    if(!bindData.allloaded && !bindData.loading){
+                        //page=page+size;
+                        loadData();
+                        console.log("Bottom of the page products " +bindData.products.length +" pageNumber "+page);
+                    }
+                }
+                //loadproducts();
+            }
             if(sessionStorage.blogheader){
                 bindData.titlepage=JSON.parse(sessionStorage.blogheader);
             }else{
@@ -91,41 +103,6 @@ WEBDOCK.component().register(function(exports){
               }
         }
     } 
-
-    function MainSroll(){
-        if(window.innerWidth>600){
-            $("#mainBody").scroll(function(e){
-                if ((e.currentTarget.clientHeight + e.currentTarget.scrollTop) >= e.currentTarget.scrollHeight) {
-                    // you're at the bottom of the page
-                    console.log($("#mainBody").outerHeight());
-                    console.log("In the event ...");
-                    if(!bindData.allloaded && !bindData.loading){
-                        //page=page+size;
-                        loadData();
-                        //console.log("Bottom of the page products " +bindData.products.length +" pageNumber "+page);
-                    }
-                }
-              });
-        }else{
-            window.document.body.onscroll = function(e) {
-                if ((window.innerHeight + window.scrollY+30) >= document.body.offsetHeight) {
-    
-                    console.log("In the event ...");
-                    if(!bindData.allloaded && !bindData.loading){
-                        //page=page+size;
-                        loadData();
-                        console.log("Bottom of the page products " +bindData.products.length +" pageNumber "+page);
-                    }
-                }
-                } 
-        }
-        
-
-
-        
-    }
-
-    
 
     function loadData(){
         bindData.loading=true;

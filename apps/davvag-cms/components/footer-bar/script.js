@@ -1,7 +1,6 @@
 WEBDOCK.component().register(function(exports){
     var bindData ={
-        SocailButtons:[],
-        CompanyInfo:{name:"Davvag"}
+        SocailButtons:[]
     };
     var vueData = {
         data:bindData,
@@ -10,7 +9,7 @@ WEBDOCK.component().register(function(exports){
             submitSearch: function(event){
                 event.preventDefault();
             }
-        }
+        },
         
     }
 
@@ -30,9 +29,6 @@ WEBDOCK.component().register(function(exports){
         
         //document.title="";
         //console.log(getCookie("securityToken"));
-        if(sessionStorage.blogheader!=null)
-            bindData.CompanyInfo=JSON.parse(sessionStorage.blogheader);
-            
         new Vue(vueData);
         var menuhandler  = exports.getComponent("soss-data");
         var query=[{storename:"d_cms_buttons_v1",search:"BType:social-footer"}];

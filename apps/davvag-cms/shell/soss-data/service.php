@@ -9,38 +9,31 @@ class SearchServices {
         $sall=$req->Body(true);
         $f=new stdClass();
         foreach($sall as $s){
-            try{
-                
-                $keyvalue=$this::indexkey($s);
-                $result= CacheData::getObjects_fullcache(md5($keyvalue),$s->storename);
-                if(!isset($result)){
-                    if(isset($s->search)){
-                        if($s->search!=""){
-                            $result = SOSSData::Query ($s->storename,urlencode($s->search));
-                        }else{
-                            $result = SOSSData::Query ($s->storename,null);
-                        }
+            $keyvalue=$this::indexkey($s);
+            $result= CacheData::getObjects_fullcache(md5($keyvalue),$s->storename);
+            if(!isset($result)){
+                if(isset($s->search)){
+                    if($s->search!=""){
+                        $result = SOSSData::Query ($s->storename,urlencode($s->search));
                     }else{
-                        $result = SOSSData::ExecuteRaw ($s->storename,$s);
-                    }
-                    //return $result;
-                    if($result->success){
-                        $f->{$s->storename}=$result->result;
-                        if(isset($result->result)){
-                            CacheData::setObjects(md5($keyvalue),$s->storename,$result->result);
-                        }
-                    }else{
-                        //var_dump($result->);
-                        //return $result;
-                        $f->{$s->storename}=$result;
+                        $result = SOSSData::Query ($s->storename,null);
                     }
                 }else{
-                    $f->{$s->storename}= $result;
+                    $result = SOSSData::ExecuteRaw ($s->storename,$s);
                 }
-                
-            }catch(Exception $ex){
-                $f->{$s->storename}=array("success"=>false,"result"=>$ex);
-
+                //return $result;
+                if($result->success){
+                    $f->{$s->storename}=$result->result;
+                    if(isset($result->result)){
+                        CacheData::setObjects(md5($keyvalue),$s->storename,$result->result);
+                    }
+                }else{
+                    //var_dump($result->);
+                    //return $result;
+                    $f->{$s->storename}=$result;
+                }
+            }else{
+                $f->{$s->storename}= $result;
             }
             
         }

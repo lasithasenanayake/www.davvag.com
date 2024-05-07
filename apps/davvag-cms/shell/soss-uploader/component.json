@@ -16,19 +16,14 @@
         "file": "service.php",
         "class": "UploaderService",
         "methods" : {
-            "get" : {
+            "getFile" : {
                 "method" : "GET",
                 "route":"/get/@ns/@name"
             },
-            "upload" : {
+            "uploadFile" : {
                 "method" : "POST",
                 "route":"/upload/@ns/@name"
-            },
-            "upload_uncompressed" : {
-                "method" : "POST",
-                "route":"/upload_uncompressed/@ns/@name"
             }
-
         }
     }    
 }

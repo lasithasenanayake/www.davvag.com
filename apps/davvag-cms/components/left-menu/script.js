@@ -17,11 +17,10 @@ WEBDOCK.component().register(function(exports){
         vueData.el = '#' + $(element).attr('id');
         new Vue(vueData);
 
-        WEBDOCK.callRest("components/object/apps?tags=showincms")
+        WEBDOCK.callRest("components/object/apps?tags=showindock")
         .success(function(data){
-            //vueData.data.apps = data.result;
+            vueData.data.apps = data.result;
             isAppsLoaded = true;
-            window.apps=data.result;
             if (appLoadedCallback)
                 appLoadedCallback(data.result);
         })
@@ -31,12 +30,10 @@ WEBDOCK.component().register(function(exports){
     }
 
     exports.getApps = function(callback){
-        if (window.apps)
-            callback(window.apps);
+        if (isAppsLoaded)
+            callback(vueData.data.apps);
         else
             appLoadedCallback = callback;
     }
-
-    
 
 });
