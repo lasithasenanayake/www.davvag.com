@@ -115,7 +115,7 @@ class appService {
     }
 
     public function getCSV($req,$res){
-        $rec=SOSSData::Query("qibprofilerequest",null);
+        $rec=SOSSData::Query("eprahimprofilerequest",null);
         //var_dump($rec);
         
         header("Content-Type: text/csv");
