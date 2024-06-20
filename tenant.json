@@ -35,6 +35,9 @@
     },
     "ephraim":{
 	    "version":"latest"
+    },
+    "davvag-email-settings":{
+	    "version":"latest"
     }
 
 
