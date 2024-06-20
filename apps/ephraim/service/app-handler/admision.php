@@ -65,7 +65,7 @@
   </tr>
   <tr>
     <td class="tg-0pky-name">DATE</td>
-    <td class="tg-0pky-value" colspan="2">28<sup>th</sup> June 2024 (28-06-2024)</td>
+    <td class="tg-0pky-value" colspan="2">29<sup>th</sup> June 2024 (29-06-2024)</td>
   </tr>
   <tr>
     <td class="tg-0pky-name">TIME</td>
