@@ -78,7 +78,7 @@
             "type":"partial",
             "location":"partials"
         },
-        "partial-homeblog-bg-carousel":{
+        "partial-homeblog-bg":{
             "type":"partial",
             "location":"partials"
         },
