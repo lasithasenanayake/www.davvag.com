@@ -1,0 +1,10 @@
+#subject{Please Download your Registration Form}#subject;
+#body{ 
+Dear @name,<br/>
+Please You Have Successfully Registered<br/>
+<a href="https://scholarships.qibcampus.com/components/qib-reg-app/app-handler/service/RegxForm?ref=@id">Click Here To Download</a><br/><br/>
+<br>
+Will Meet you Near Ella Station :)
+Regards,<br/>
+Ehpraim Team
+}#body;
