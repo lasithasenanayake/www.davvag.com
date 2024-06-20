@@ -18,12 +18,12 @@
         }
     },
     "description":{
-        "title": "QIB App",
+        "title": "Ephraim App",
         "author":"Lasitha",
         "version":"0.1",
         "icon":"appicon.png"
     },
-    "tags":["showincms"],
+    "tags":["showincms","showindock"],
     "configuration":{
         "webdock":{
             "startupComponent" : "enrole-sin",
