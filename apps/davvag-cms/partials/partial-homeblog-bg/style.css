@@ -5,11 +5,37 @@
 .gedf-card {
     margin-bottom: 10px;
 }
+.gedf-main {
+    padding-left: 4rem;
+    padding-right: 4rem;
+    height: 100vh;
+    overflow: hidden scroll;
+}
 
-@media (min-width: 992px) {
+#mainBody::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+#mainBody::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+#mainBody::-webkit-scrollbar-thumb
+{
+	background-color: var(--scrollColor);
+}
+
+@media only screen and (max-width: 600px) {
+
     .gedf-main {
-        padding-left: 4rem;
-        padding-right: 4rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        height: 100%;
+        overflow: hidden;
     }
     .gedf-card {
         margin-bottom: 10px;
@@ -169,10 +195,10 @@ a.read-more-link {
 /* The hero image */
 .hero-image {
     /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-    background-image: linear-gradient(rgba(153, 0, 0, 0), rgba(153, 0, 0, 0)), url("banner.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("banner.jpg");
 
     /* Set a specific height */
-    height: 600px;
+    height: 100%;
 
     /* Position and center the image to scale nicely on all screens */
     background-position: center;
