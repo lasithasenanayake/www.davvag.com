@@ -43,7 +43,7 @@ class appService {
         $data = $req->Body(true);
         $data->regdate=time();
         //$data->country=$this->getCountries()[$data->countrycode];
-        $rec=SOSSData::Query("profile",urlencode("id_number:".$data->id_number));
+        $rec=SOSSData::Query("profile",urlencode("email:".$data->email));
             $data->profileid=0;
             if(!count($rec->result)>0){
                 $new=new stdClass();
