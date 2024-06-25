@@ -56,13 +56,18 @@ class appService {
             }else{
                 $data->profileid=$rec->result[0]->id;
             }
-
+        
         $rec=SOSSData::Query("eprahimprofilerequest",urlencode("email:".$data->email));
         if(count($rec->result)>0){
-            $data->id=$rec->result[0]->id;
-            $r=SOSSData::Update("eprahimprofilerequest",$data);
-            $data->emailstatus=Notify::sendEmailMessage($data->name,$data->email,"qib-admision",$data);
-            return $data;
+            if($rec->result[0]->contactno==$data->contactno){
+                $data->id=$rec->result[0]->id;
+                $r=SOSSData::Update("eprahimprofilerequest",$data);
+                $data->emailstatus=Notify::sendEmailMessage($data->name,$data->email,"qib-admision",$data);
+                return $data;
+            }else{
+                $r=SOSSData::Insert("eprahimprofilerequest",$data);
+                $data->id=$r->result->generatedId;
+            }
         }else{
             
             $r=SOSSData::Insert("eprahimprofilerequest",$data);
@@ -96,6 +101,26 @@ class appService {
         }else{
             echo "<h1>Error: Invalid Request</h1><br>We apologize, but the request you submitted is invalid. Please review the information provided and try again.";
         }
+    }
+
+    public function getListOfPeople($req,$res)
+    {
+        if(isset($_GET["ref"])){
+            $id=$_GET["ref"];
+            $rec=SOSSData::Query("eprahimprofilerequest","referelid:".$id);
+            if(count($rec->result)>0){
+                $html=$this->getRenderedHTML("regdata.php",array("data"=>$rec->result));
+                echo $html;
+            }
+        }else{
+            $rec=SOSSData::Query("eprahimprofilerequest",null);
+            if(count($rec->result)>0){
+                $html=$this->getRenderedHTML("regdata.php",array("data"=>$rec->result));
+                echo $html;
+            }
+        }
+
+
     }
 
     function getRenderedHTML($path,$_data=array()) {
