@@ -78,15 +78,16 @@ class appService {
     }
 
     private function CheckPro($data1,$data2){
-        
-        if($data1->result[0]->name==$data1->name){
-            return true;
-        }
-        if(isset($data2->id_number)){
-            if($data1->result[0]->id_number==$data1->id_number){
+        if(isset($data1->name)){
+            if($data1->name==$data1->name){
                 return true;
             }
-        }   
+            if(isset($data2->id_number)){
+                if($data1->result[0]->id_number==$data1->id_number){
+                    return true;
+                }
+            }   
+        }
         return false;
     }
 
