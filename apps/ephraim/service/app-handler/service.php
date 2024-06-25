@@ -125,12 +125,22 @@ class appService {
             if(count($rec->result)>0){
                 $html=$this->getRenderedHTML("regdata.php",array("data"=>$rec->result));
                 echo $html;
+                exit();
             }
         }else{
             $rec=SOSSData::Query("eprahimprofilerequest",null);
             if(count($rec->result)>0){
                 $html=$this->getRenderedHTML("regdata.php",array("data"=>$rec->result));
-                echo $html;
+                $mpdf = new \Mpdf\Mpdf();
+                //echo $html;
+                //exit;
+                $mpdf->allow_charset_conversion=true;  // Set by default to TRUE
+    
+                $mpdf->charset_in='windows-1252';
+                $mpdf->WriteHTML(mb_convert_encoding($html,"UTF-8", "windows-1252"));
+
+                 $mpdf->Output("reg-list.pdf",\Mpdf\Output\Destination::DOWNLOAD);
+                exit();
             }
         }
 
