@@ -45,7 +45,7 @@ class appService {
         //$data->country=$this->getCountries()[$data->countrycode];
         $rec=SOSSData::Query("profile",urlencode("email:".$data->email));
             $data->profileid=0;
-            if(!count($rec->result)>0){
+            if(!count($rec->result)>0 && !$this->CheckPro($rec->result[0],$data)){
                 $new=new stdClass();
                 $new->name=$data->name;
                 $new->email=$data->email;
@@ -59,7 +59,7 @@ class appService {
         
         $rec=SOSSData::Query("eprahimprofilerequest",urlencode("email:".$data->email));
         if(count($rec->result)>0){
-            if($rec->result[0]->contactno==$data->contactno){
+            if($this->CheckPro($rec->result[0],$data)){
                 $data->id=$rec->result[0]->id;
                 $r=SOSSData::Update("eprahimprofilerequest",$data);
                 $data->emailstatus=Notify::sendEmailMessage($data->name,$data->email,"qib-admision",$data);
@@ -75,6 +75,19 @@ class appService {
         }
         $data->emailstatus=Notify::sendEmailMessage($data->name,$data->email,"qib-admision",$data);
         return $data; 
+    }
+
+    private function CheckPro($data1,$data2){
+        
+        if($data1->result[0]->name==$data1->name){
+            return true;
+        }
+        if(isset($data2->id_number)){
+            if($data1->result[0]->id_number==$data1->id_number){
+                return true;
+            }
+        }   
+        return false;
     }
 
     public function getRegxForm($req,$res){
