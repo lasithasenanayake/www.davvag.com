@@ -13,6 +13,7 @@
         ]
     },
     "serviceHandler" : {
+
         "file": "service.php",
         "class": "appService",
         "methods" : {
