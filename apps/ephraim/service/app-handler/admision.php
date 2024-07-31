@@ -34,7 +34,7 @@
 
 <table class="tg"><thead>
   <tr>
-    <th class="tg-black" colspan="3"><h1>Registration For Ella Hike</h1></th>
+    <th class="tg-black" colspan="3"><h1>Registration Pass</h1></th>
     
   </tr>
 </thead>
@@ -65,15 +65,15 @@
   </tr>
   <tr>
     <td class="tg-0pky-name">DATE</td>
-    <td class="tg-0pky-value" colspan="2">29<sup>th</sup> June 2024 (29-06-2024)</td>
+    <td class="tg-0pky-value" colspan="2">25<sup>th</sup> August 2024 (25-08-2024)</td>
   </tr>
   <tr>
     <td class="tg-0pky-name">TIME</td>
-    <td class="tg-0pky-value" colspan="2">7:00 am</td>
+    <td class="tg-0pky-value" colspan="2">6:00 am</td>
   </tr>
   <tr>
     <td class="tg-0pky-name">Place</td>
-    <td class="tg-0pky-value" colspan="2"> Ella Train Station</td>
+    <td class="tg-0pky-value" colspan="2"> China Bay Station (Trincomalee)</td>
   </tr>
   <tr>
     <td class="tg-0pky-name">Medical Health Condition</td>

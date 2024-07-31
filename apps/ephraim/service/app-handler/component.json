@@ -13,7 +13,6 @@
         ]
     },
     "serviceHandler" : {
-
         "file": "service.php",
         "class": "appService",
         "methods" : {
@@ -26,8 +25,10 @@
             "CSV" : {
                 "method" : "GET"
             },
-            "ListOfPeople":{
-                 "method" : "GET"
+            
+            "Project":{
+                "method" : "GET",
+                "parameters": ["pid"]
             }           
         }
     },
