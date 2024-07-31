@@ -24,13 +24,6 @@
             }
         },
         {
-            "fieldName":"contactgno",
-            "dataType":"java.lang.String",
-            "annotations":{
-                "maxLen": 20
-            }
-        },
-        {
             "fieldName":"email",
             "dataType":"java.lang.String",
             "annotations":{
@@ -85,6 +78,23 @@
             }
         },
         {
+            "fieldName":"iq_result",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 30,
+                "encoding":"utf8"
+            }
+        }
+        ,
+        {
+            "fieldName":"index_number",
+            "dataType":"java.lang.String",
+            "annotations":{
+                "maxLen": 30,
+                "encoding":"utf8"
+            }
+        },
+        {
             "fieldName":"id_number",
             "dataType":"java.lang.String",
             "annotations":{
@@ -103,28 +113,7 @@
         {
             "fieldName":"profileid",
             "dataType":"int"
-        },
-        {
-            "fieldName":"productid",
-            "dataType":"int"
-        },
-        {
-            "fieldName":"projectid",
-            "dataType":"int"
-        },
-        {
-            "fieldName":"gender",
-            "dataType":"java.lang.String",
-            "annotations":{
-                "maxLen": 1
-            }
-        },
-        {
-             "fieldName":"medicremarks",
-             "dataType":"java.lang.String",
-            "annotations":{
-                "maxLen": 1000
-            }
         }
+
     ]
 }
