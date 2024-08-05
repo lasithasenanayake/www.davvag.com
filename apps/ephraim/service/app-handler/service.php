@@ -60,7 +60,7 @@ class appService {
                 $data->profileid=$rec->result[0]->id;
             }
         
-        $rec=SOSSData::Query("eprahimprofilerequest",urlencode("email:".$data->email));
+        $rec=SOSSData::Query("eprahimprofilerequest",urlencode("email:".$data->email.",projectid:".$data->projectid));
         if(count($rec->result)>0){
             if($this->CheckPro($rec->result[0],$data)){
                 $data->id=$rec->result[0]->id;
