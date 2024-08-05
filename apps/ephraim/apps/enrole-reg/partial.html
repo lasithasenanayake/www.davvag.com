@@ -8,8 +8,8 @@
     
   </div>
   <form id="form-details-1" class="activeForm" onsubmit="return false;">
-  <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> {{ project.header }}</h1>
-  <h2> {{ project.reg_desc }}</h2>
+  <h1 class="h3 mb-3 font-weight-normal" style="text-align: center" v-html="project.header"></h1>
+  <h2 v-html="project.reg_desc"> </h2>
   <div class="TimeLeft">
     Days Left : {{ day }}
     
