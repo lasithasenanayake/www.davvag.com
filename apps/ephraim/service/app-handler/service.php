@@ -123,7 +123,17 @@ class appService {
 
     public function getListOfPeople($req,$res)
     {
-        if(isset($_GET["ref"])){
+        if(isset($_GET["pid"])){
+            $id=$_GET["pid"];
+            $rec=SOSSData::Query("eprahimprofilerequest","projectid:".$id);
+            if(count($rec->result)>0){
+                $html=$this->getRenderedHTML("regdata.php",array("data"=>$rec->result));
+                echo $html;
+                exit();
+            }
+
+        }
+        elseif(isset($_GET["ref"])){
             $id=$_GET["ref"];
             $rec=SOSSData::Query("eprahimprofilerequest","referelid:".$id);
             if(count($rec->result)>0){

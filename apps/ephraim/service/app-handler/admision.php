@@ -64,17 +64,15 @@
   </td>
   </tr>
   <tr>
-    <td class="tg-0pky-name">DATE</td>
-    <td class="tg-0pky-value" colspan="2">25<sup>th</sup> August 2024 (25-08-2024)</td>
+    
+    <td class="tg-0pky-name">Details</td>
+    <td class="tg-0pky-value" colspan="2"><?$res=SOSSData::Query("attr_projects","ID:".$data->projectid);
+    if(count($res)>0){
+      echo $res[0]->reg_complete;
+    }
+    ?></td>
   </tr>
-  <tr>
-    <td class="tg-0pky-name">TIME</td>
-    <td class="tg-0pky-value" colspan="2">6:00 am</td>
-  </tr>
-  <tr>
-    <td class="tg-0pky-name">Place</td>
-    <td class="tg-0pky-value" colspan="2"> China Bay Station (Trincomalee)</td>
-  </tr>
+  
   <tr>
     <td class="tg-0pky-name">Medical Health Condition</td>
     <td class="tg-0pky-value" colspan="2"> <?=$data->medicremarks?></td>
