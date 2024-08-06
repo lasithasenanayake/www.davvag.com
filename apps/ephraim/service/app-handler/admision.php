@@ -67,8 +67,8 @@
     
     <td class="tg-0pky-name">Details</td>
     <td class="tg-0pky-value" colspan="2"><?$res=SOSSData::Query("attr_projects","ID:".$data->projectid);
-    if(count($res)>0){
-      echo $res[0]->reg_complete;
+    if(count($res->result)>0){
+      echo $res->result[0]->reg_complete;
     }
     ?></td>
   </tr>
