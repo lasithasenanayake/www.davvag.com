@@ -125,7 +125,7 @@ class appService {
     {
         if(isset($_GET["pid"])){
             $id=$_GET["pid"];
-            $rec=SOSSData::Query("eprahimprofilerequest","projectid:".$id);
+            $rec=SOSSData::Query("eprahimprofilerequest","projectid:".$id,null,"asc",1000,$fromPage=0);
             if(count($rec->result)>0){
                 $html=$this->getRenderedHTML("regdata.php",array("data"=>$rec->result));
                 echo $html;
