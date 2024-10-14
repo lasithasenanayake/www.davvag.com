@@ -54,7 +54,7 @@ class appService {
 
 
             $profile=$this->CheckPro($rec->result,$data);
-            if(!count($rec->result)>0 && empty($profile)){
+            if(empty($profile)){
                 $new=new stdClass();
                 $new->name=$data->name;
                 $new->email=$data->email;
