@@ -28,12 +28,13 @@ WEBDOCK.component().register(function(exports){
                 
                 vueData = instance.vue; 
                 var app;
-                vueData.deferRendering=vueData.deferRendering==null?true:vueData.deferRendering;
+
                 if (!vueData.deferRendering){
                     if (vueData.onBeforeRender)
                         vueData.onBeforeRender();
                     
                     vueData.el = '#' + routeSettings.routes.renderDiv;
+
                     app = new Vue(vueData);                    
                 }
 

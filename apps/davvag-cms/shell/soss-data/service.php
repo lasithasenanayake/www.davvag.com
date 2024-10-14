@@ -8,9 +8,9 @@ class SearchServices {
     public function postq($req){
         $sall=$req->Body(true);
         $f=new stdClass();
+        //return $sall;
         foreach($sall as $s){
             try{
-                
                 $keyvalue=$this::indexkey($s);
                 $result= CacheData::getObjects_fullcache(md5($keyvalue),$s->storename);
                 if(!isset($result)){
@@ -37,13 +37,14 @@ class SearchServices {
                 }else{
                     $f->{$s->storename}= $result;
                 }
-                
+                //return $f;
             }catch(Exception $ex){
                 $f->{$s->storename}=array("success"=>false,"result"=>$ex);
 
             }
             
         }
+      
         return $f;
     }
 
