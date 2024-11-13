@@ -48,7 +48,7 @@
         <td><?=$value->name?></td>
         <td><?=$value->email?></td>
         <td>	
-        <a href="<?=$value->contactno?>"><?=$value->contactno?></a></td>
+        <a href="tel:<?=$value->contactno?>"><?=$value->contactno?></a></td>
         <td><?=$value->id_number?></td>
         <td><a href="https://www.davvag.com/components/ephraim/app-handler/service/RegxForm?ref=<?=$value->id?>">Download</a></td>
     </tr>
